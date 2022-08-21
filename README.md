@@ -6,7 +6,7 @@
 
 《The Go Programing Language》阅读笔记
 
-![image-20220821155800192](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821155800192.png)
+![image-20220821162638750](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821162638750.png)
 
 该笔记对应本仓库中：《Go程序设计语言笔记》.md。
 
@@ -34,7 +34,7 @@
 
 ## 简历模板：
 
-![image-20220821162326276](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821162326276.png)
+![image-20220821162531852](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821162531852.png)
 
 简历书写参考我的这两篇文章：
 
