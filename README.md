@@ -34,7 +34,7 @@
 
 ## 简历模板：
 
-![image-20220821155405417](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821155405417.png)
+![image-20220821162326276](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821162326276.png)
 
 简历书写参考我的这两篇文章：
 
