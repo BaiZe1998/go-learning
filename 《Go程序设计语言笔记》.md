@@ -245,7 +245,51 @@ var z int = int(x) + int(y) // ok
 // 大多数数值型的类型转换不会改变值的内容，只会改变其类型（编译器解释这个变量的方式），但是当整数和浮点数以及大范围类型与小范围类型转换时，可能会丢失精度，或者出现意外的结果
 ```
 
+### 3.2 浮点数
 
+```go
+math.MaxFloat32
+math.MinFloat32
+const x = 6.2222334e30 // 科学计数法
+// math包中有很多的使用浮点数的函数，并且fmt包有很多适用于浮点数的格式化输出，包括保留小数点的具体精度等
+```
+
+float32精度大概6位
+
+float64精度大概15位（更常用，因为单精度计算损失太快）
+
+```go
+// 直接用浮点数为返回值结果，再二次用于其他的比较判断返回结果是否有效，有时会有误差导致错误，推荐额外增加一个bool参数
+func compute() (value float64, ok bool) {
+  if failed {
+    return 0, false
+  }
+  return result, true
+}
+```
+
+### 3.3 复数
+
+```go
+var x complex128 = complex(1, 2) // 1+2i
+var y complex128 = complex(3, 4) // 3+4i
+fmt.Println(x*y) // -5+10i
+fmt.Println(real(x*y)) // -5
+fmt.Println(imag(x*y)) // 10
+// 两个复数相等当且仅当实部和虚部相当
+fmt.Println(cmplx.Sqrt(-1)) // 0+1i
+```
+
+### 3.4 布尔量
+
+bool是if或者for的判断条件
+
+```go
+s != "" && s[0] == 'x' // 当逻辑运算符左侧表达式可以决定操作结果则将放弃执行右侧表达式
+// &&的优先级高于||
+```
+
+### 3.5 字符串
 
 
 
