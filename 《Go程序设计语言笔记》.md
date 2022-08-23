@@ -291,6 +291,86 @@ s != "" && s[0] == 'x' // 当逻辑运算符左侧表达式可以决定操作结
 
 ### 3.5 字符串
 
+string在GO语言中是不可变的量
+
+len获取的是字符串的字节数目，而不是码点（UTF-8 Unicode code point）
+
+字符串第i个字节，并不一定是字符串的第i个字符，因为UTF-8编码对于非ASCII的code point需要2个或更多字节
+
+```golang
+str := "hello, world"
+fmt.Println(s[:5]) // hello
+fmt.Println(s[7:]) // world
+fmt.Println(s[:]) // hello world
+
+s := "left"
+t := s
+s += " right" // 此时s指向新创建的string ”left right“，而t指向之前的s表示的“left”
+
+a := "x"
+b := "x"
+a == b // true，且string可以按照字典序比较大小
+```
+
+string是不可变的，意味着同一个string的拷贝可以共享底层的内存，使得拷贝变得很轻量，比如s和s[:7]可以安全的共享相同的数据，因此substring操作也很轻量。没有新的内存被分配。
+
+![image-20220823211950255](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220823211950255.png)
+
+反引号中的字符串表示其原生的意思，内容可以多行定义，不支持转义字符
+
+```go
+func main() {
+	a := `hello 
+	world
+	lalala`
+	fmt.Println(a)
+}
+```
+
+#### Unicode
+
+UTF-8使用码点描述字符（Unicode code point），在Go中对应术语：rune（GO中使用int32存储）
+
+可以使用一个int32的序列，来代表rune序列，固定长度带来了额外的开销（因为大多数常用字符可以使用16bits描述）
+
+#### UTF-8
+
+可变长编码，使用1-4 bytes来代表一个rune，1byte存储 ASCII ，2 or 3 bytes 存储大多数常用字符 rune，并且采用高位固定的方式来区分范围（前缀编码，无二义性，编码更紧凑）
+
+![image-20220823214937576](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220823214937576.png)
+
+```go
+s := "Hello, 世界"
+fmt.Println(len(s)) // 13
+fmt.Println(utf8.RuneCountInString(s)) // 9
+```
+
+![image-20220823220227181](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220823220227181.png)
+
+#### 字符串和数组切片
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
