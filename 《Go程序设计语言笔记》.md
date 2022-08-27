@@ -349,17 +349,95 @@ fmt.Println(utf8.RuneCountInString(s)) // 9
 
 #### 字符串和数组切片
 
+字符串包含了一连串的字节（byte），创建后不可变。而[]byte内容是可变的
 
+```go
+s := "abc"
+b := []byte(s) // 分配新的字节数组内存
+s2 : string(b) // 发生内存拷贝
+```
 
+为了避免没有必要的转换和内存分配，bytes包中提供了很多与string包中相同功能的方法，更推荐使用（共享内存）
 
+bytes.Buffer用于字符（字符串）的累加构造字符串操作很方便，高效
 
+```go
+// 一些操作Buffer的api
+var buf bytes.Buffer
+fmt.Fprintf(&buf, "%d", x)
+buf.WriteString("abc")
+buf.WriteByte('x')
+buf.WriteRune(码点值)
+```
 
+#### 字符串和数值类型的转换
 
+```go
+// 整数转string
+x := 123
+y := fmt.Sprintf("%d", x)
+fmt.Println(y, strconv,Itoa(x)) // "123" "123"
+// %b %d %u %x 用于进制转换
+s := fmt.Sprintf("x=%b", x) // "x=1111011"
+// string转整数
+x, err := strconv.Atoi("123")
+y, err := strconv.ParseInt("123", 10, 64)// base 10, up to 64 bits，第三个参数表示转换的整型的范围为int64
+// fmt.Scanf()可以用于读取混合数据（整型、字符等）
+```
 
+### 3.6 常量
 
+所有常量的底层都是由：boolean、string、number组成（在编译时确定，不可变，常量的运算结果依旧是常量）
 
+```go
+const a = 2
+const b = 2*a // b 在编译时完成
+```
 
+大多数常量的声明没有指定类型，但是也可以指定，没有类型的常量Go中称为无类型常量（untyped constant），具体的类型到使用到的时候确定
 
+#### untyped constant
+
+```go
+const a = 10
+fmt.Printf("%T\n", a) // int（隐式类型）
+var b float64 = 4*a // 在需要的时候，a转变成了float64
+fmt.Printf("%T\n", b)
+```
+
+在默认情况下，untyped constant 不是没有具体类型，而是隐式转换成了如下类型，因此上述a的类型可以打印为int
+
+并且untyped constant拥有更高的精度
+
+- untyped boolean
+- untyped integer （隐式转换成 int）
+- untyped rune （隐式转换成 int32）
+- untyped floaing-point （隐式转换成 float64）
+- untyped complex (隐匿转换成 complex128)
+- untyped string
+
+#### 常量生成器
+
+```go
+type Flags uint
+const (
+	a = 1 << iota // 1
+	b							// 2
+	c  						// 4
+	d							// 8
+)
+const (
+  _ = 1 << (10 * iota)
+  KiB // 2^10
+  MiB // 2^20
+  GiB // 2^30
+  TiB // 
+  PiB // 
+  EiB // 
+  ZiB // 2^70
+  ...
+)
+```
 
 
 
