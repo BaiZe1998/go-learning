@@ -407,7 +407,7 @@ fmt.Printf("%T\n", b)
 
 在默认情况下，untyped constant 不是没有具体类型，而是隐式转换成了如下类型，因此上述a的类型可以打印为int
 
-并且untyped constant拥有更高的精度
+并且untyped constant拥有更高的精度，可以认为至少有 256bit 的运算精度
 
 - untyped boolean
 - untyped integer （隐式转换成 int）
