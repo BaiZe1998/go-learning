@@ -402,7 +402,7 @@ const b = 2*a // b 在编译时完成
 const a = 10
 fmt.Printf("%T\n", a) // int（隐式类型）
 var b float64 = 4*a // 在需要的时候，a转变成了float64
-fmt.Printf("%T\n", b)
+fmt.Printf("%T\n", b) // float64
 ```
 
 在默认情况下，untyped constant 不是没有具体类型，而是隐式转换成了如下类型，因此上述a的类型可以打印为int

@@ -6,8 +6,6 @@
 
 《The Go Programing Language》阅读笔记
 
-![image-20220821162638750](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821162638750.png)
-
 该笔记对应本仓库中：《Go程序设计语言笔记》.md。
 
 建议clone仓库之后，在本地的markdown客户端中打开阅读，因为GitHub的在线阅读无法解析该笔记的目录，导致阅读体验不佳。
@@ -22,19 +20,15 @@
 
 ## Go语言书单
 
-这几本都是我曾经阅读/正在阅读的书籍，对于Go语言的入门来说已经足够。
+给出的都是我曾经阅读/正在阅读的书籍，对于Go语言的入门来说已经足够。
 
 这里给出的PDF只供学习使用，如有侵权请联系微信【BaiZe1998_】。
-
-![image-20220821154747000](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821154747000.png)
 
 链接: https://pan.baidu.com/s/1TGumvT0rHJIyxYYr6QwbXg
 
 提取码：容易失效，关注公众号【程序员白泽】，回复【提取码】即可获得，如果失效则可以直接联系我获取。
 
 ## 简历模板：
-
-![image-20220821162531852](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220821162531852.png)
 
 简历书写参考我的这两篇文章：
 
