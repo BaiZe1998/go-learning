@@ -418,6 +418,8 @@ fmt.Printf("%T\n", b) // float64
 
 #### 常量生成器
 
+可以参与计算且拥有增长属性
+
 ```go
 type Flags uint
 const (

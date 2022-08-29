@@ -2,6 +2,34 @@
 
 一个存放Go语言&计算机学习资料的仓库，包括电子书、个人学习笔记；以及我当前使用的简历模板。**近期也会完善数据库、操作系统、计算机网络等部分电子书单的建设**。
 
+## Go基础知识
+
+[Go语言知识查漏补缺｜基本数据类型](https://juejin.cn/post/7137173799367573512)
+
+[我开源了一个Go学习仓库｜笔记预览](https://juejin.cn/post/7134337893392187423)
+
+## Go开发专栏
+
+[rpc的正确打开方式｜读懂Go原生net/rpc包](https://juejin.cn/post/7107623772982607886)
+
+[字节RPC框架Kitex的日志库klog竟然也这么小巧！](https://juejin.cn/post/7104825435795980324)
+
+[Go日志库log竟然这么小巧！](https://juejin.cn/post/7103790667595268126)
+
+## MySQL专栏
+
+[我的sql没问题为什么还是这么慢｜MySQL加锁规则](https://juejin.cn/post/7121513578523263013)
+
+[一篇文章带你搞懂InnoDB的索引｜结合样例](https://juejin.cn/post/7085922175848300558)
+
+[一文搞懂MySQL事务的隔离性如何实现｜MVCC](https://juejin.cn/post/7085185961239248927)
+
+[面试官：请分析一条SQL语句的执行](https://juejin.cn/post/7084415335436124173)
+
+[一文讲解MySQL主从复制｜手撕MySQL｜对线面试官](https://juejin.cn/post/7072165642584981534)
+
+[MySQL通过bin log恢复数据｜手撕MySQL｜对线面试官](https://juejin.cn/post/7071060537437585445)
+
 ## 读书笔记
 
 《The Go Programing Language》阅读笔记
