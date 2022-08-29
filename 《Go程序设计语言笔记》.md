@@ -493,7 +493,29 @@ s = []int{} // len(s) == 0, s != nil
 
 ### 4.3 映射
 
+map(hash table) — **无序集合**，key必须是可以比较的（除了浮点数，这不是一个好的选择）
 
+```go
+x := make(map[string]int)
+y := map[string]int{
+  "alice": 12,
+  "tom": 34
+}
+z := map[string]int{}
+// 内置函数
+delete(y, "alice")
+```
+
+对map的元素进行取地址并不是一个好的注意，因为map的扩容过程中可能伴随着rehash，导致地址发生变化（那么map的扩容规则？）
+
+```go
+ages["carol"] = 21 // panic if assignment to entry in nil map
+// 判断key-value是否存在的方式
+age, ok := ages["alice"]
+if age, ok := ages["bob"]; !ok {
+  ...
+}
+```
 
 
 
