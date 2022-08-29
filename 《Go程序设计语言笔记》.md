@@ -439,17 +439,59 @@ const (
 )
 ```
 
+## 四、复合类型
 
+### 4.1 数组
 
+长度不可变，如果两个数组类型是相同的则可以进行比较，且只有完全相等才会为true
 
+```go
+a := [...]int{1, 2} // 数组的长度由内容长度确定
+b := [2]int{1, 2}
+c := [3]int{1, 2}
+```
 
+#### 4.2 切片
 
+切片由三部分组成：指针、长度（len）、容量（cap）
 
+切片可以通过数组创建
 
+```go
+// 创建月份数组
+months := [...]string{1:"January", 省略部分内容, 12: "December"}
+```
 
+基于月份数组创建切片，且不同切片底层可能共享一片数组空间
 
+![image-20220829102017677](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220829102017677.png)
 
+```go
+fmt.Println(summer[:20]) // panic: out of range
+endlessSummer := summer[:5] // 如果未超过summer的cap，则会扩展slice的len
+fmt.Println(endlessSummer) // "[June July August September October]"
+```
 
+[]byte切片可以通过对字符串使用类似上述操作的方式获取
+
+切片之间不可以使用==进行比较，只有当其判断是否为nil才可以使用
+
+切片的zero value是nil，nil切片底层没有分配数组，nil切片的len和cap都为0，但是非nil切片的len和cap也可以为0（Go中len == 0的切片处理方式基本相同）
+
+```go
+var s []int // len(s) == 0, s == nil
+s = nil // len(s) == 0, s == nil
+s = []int(nil) // len(s) == 0, s == nil
+s = []int{} // len(s) == 0, s != nil
+```
+
+#### The append Function
+
+使用append为slice追加内容，如果cap == len，则会触发slice扩容，下面是一个帮助理解的例子（使用了2倍扩容，并非是Go内置的append处理流程，那将会更加精细，api也更加丰富）：
+
+![image-20220829112405398](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220829112405398.png)
+
+### 4.3 映射
 
 
 
