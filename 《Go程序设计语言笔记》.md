@@ -519,9 +519,57 @@ if age, ok := ages["bob"]; !ok {
 }
 ```
 
+### 4.4 结构体
 
+```go
+type Point struct {
+  x, y int
+}
+type Circle struct {
+	center Point
+  radius int
+}
+type Wheel struct {
+  circle Circle
+  spokes int
+}
+w := Wheel{Circle{Point{8, 8}, 5}, 20}
+w := Wheel{
+		circle: Circle{
+			center: Point{x: 8, y: 8},
+			radius: 5,
+		},
+		spokes: 20,
+	}
+```
 
+### 4.5 JSON
 
+```go
+// 将结构体转成存放json编码的byte切片
+type Movie struct {
+	Title string
+	Year  int  `json:"released"` // 重定义json属性名称
+	Color bool `json:"color,omitempty"` // 如果是空值则转成json时忽略
+}
+data, err := json.Marshal(movie)
+data2, err := json.MarshalIndent(movie, "", " ")
+// 输出结果
+{"Title":"s","released":1,"color":true}
+{
+ "Title": "s",
+ "released": 1,
+ "color": true
+}
+// json解码
+content := Movie{}
+json.Unmarshal(data, &content)
+fmt.Println(content)
+```
+
+### 4.6 文本和HTML模板
+
+略
 
 
 
