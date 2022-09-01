@@ -571,6 +571,141 @@ fmt.Println(content)
 
 略
 
+## 五、方法
+
+### 5.1 方法声明
+
+```go
+// 可以提前声明返回值z
+func add(x, y int) (z int) {
+	z = x-y
+	return
+}
+```
+
+如果两个方法的参数列表和返回值列表相同，则称之为拥有相同类型（same type）
+
+参数是值拷贝，但是如果传入的参数是：slice、pointer、map、function，channel虽然是值拷贝，但是也是引用类型的值，会对其指向的值做出相应变更
+
+你可能会遇到查看某些go的内置func源码的时候它没有声明func的body部分，例如append方法
+
+```go
+// The append built-in function appends elements to the end of a slice. If
+// it has sufficient capacity, the destination is resliced to accommodate the
+// new elements. If it does not, a new underlying array will be allocated.
+// Append returns the updated slice. It is therefore necessary to store the
+// result of append, often in the variable holding the slice itself:
+//	slice = append(slice, elem1, elem2)
+//	slice = append(slice, anotherSlice...)
+// As a special case, it is legal to append a string to a byte slice, like this:
+//	slice = append([]byte("hello "), "world"...)
+func append(slice []Type, elems ...Type) []Type
+```
+
+事实上append在代码编译的时候，被替换成runtime.growslice以及相关汇编指令了（可以输出汇编代码查看细节），你可以在go的runtime包中找到相关实现，如下：
+
+```go
+// growslice handles slice growth during append.
+// It is passed the slice element type, the old slice, and the desired new minimum capacity,
+// and it returns a new slice with at least that capacity, with the old data
+// copied into it.
+// The new slice's length is set to the old slice's length,
+// NOT to the new requested capacity.
+// This is for codegen convenience. The old slice's length is used immediately
+// to calculate where to write new values during an append.
+// TODO: When the old backend is gone, reconsider this decision.
+// The SSA backend might prefer the new length or to return only ptr/cap and save stack space.
+func growslice(et *_type, old slice, cap int) slice {
+   if raceenabled {
+      callerpc := getcallerpc()
+      racereadrangepc(old.array, uintptr(old.len*int(et.size)), callerpc, abi.FuncPCABIInternal(growslice))
+   }
+   if msanenabled {
+      msanread(old.array, uintptr(old.len*int(et.size)))
+   }
+   if asanenabled {
+      asanread(old.array, uintptr(old.len*int(et.size)))
+   }
+ 	// 省略...
+}
+```
+
+声明函数时指定返回值的名称，可以在return时省略
+
+```go
+func add(x, y int) (z int, err error) {
+  data, err := deal(x, y)
+  if err != nil {
+    return // 此时等价于return 0, nil
+  }
+  // 这里是赋值而不是声明，因为在返回值列表中声明过了
+  z = x+y
+  return // 此时等价于return z, nil
+}
+```
+
+### 5.2 错误
+
+如果一个函数执行失败时需要返回的行为很单一可以通过bool来控制
+
+```go
+func test(a int) (y int, ok bool) {
+  x, ok := test1(a)
+  if !ok {
+    return 
+	}
+  y = x*x
+  return 
+}
+```
+
+更多情况下，函数处理时可能遇到多种类型的错误，则使用error，可以通过判断err是否为nil判断是否发生错误
+
+```go
+func test(a int) (y int, err error) {
+  x, err := test1(a)
+  if err != nil {
+    return 
+	}
+  y = x*x
+  return 
+}
+// 打印错误的值
+fmt.Println(err)
+fmt.Printf("%v", err)
+```
+
+Go通过if和return的机制手动返回错误，使得错误的定位更加精确，并且促使你更早的去处理这些错误（而不是像其他语言一样选择抛出异常，可能使得异常由于调用栈的深入，导致最终处理不便）
+
+#### 错误处理策略
+
+一个func的调用返回了err，则调用方有责任正确处理它，下面介绍五种常见处理方式：
+
+1. 传递：
+
+```go
+// 某func部分节选
+resp, err := http,Get(url)
+if err != nil {
+  // 将对Get返回的err处理交给当前func的调用方
+  return nil, err
+}
+```
+
+fmt.Errorf()格式化，添加更多描述信息，并创建一个了新的error（参考fmt.Sprintf的格式化）
+
+![image-20220901132429146](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220901132429146.png)
+
+当error最终被处理的时候，需要反映出其错误的调用链式关系
+
+并且error的内容组织在一个项目中需要统一，以便于后期借助工具统一分析
+
+
+
+
+
+
+
 
 
 
