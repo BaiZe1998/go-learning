@@ -646,6 +646,14 @@ func add(x, y int) (z int, err error) {
 
 ### 5.2 错误
 
+error是一个接口，因此可以自定义实现error
+
+```go
+type error interface {
+   Error() string
+}
+```
+
 如果一个函数执行失败时需要返回的行为很单一可以通过bool来控制
 
 ```go
@@ -699,6 +707,139 @@ fmt.Errorf()格式化，添加更多描述信息，并创建一个了新的error
 当error最终被处理的时候，需要反映出其错误的调用链式关系
 
 并且error的内容组织在一个项目中需要统一，以便于后期借助工具统一分析
+
+2. 错误重试
+
+![image-20220902104510073](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902104510073.png)
+
+3. 优雅关闭
+
+如果无法处理，可以选择优雅关闭程序，但是推荐将这步工作交给main包的程序，而库函数则选择将error传递给其调用方。
+
+![image-20220902110047619](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902110047619.png)
+
+使用log.Fatalf更加方便
+
+![image-20220902110156627](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902110156627.png)
+
+会默认输出error的打印时间
+
+![image-20220902110305377](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902110305377.png)
+
+4. 选择将错误打印
+
+![image-20220902111135436](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902111135436.png)
+
+或者输出到标准错误流
+
+![image-20220902111207116](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902111207116.png)
+
+5. 少数情况下，可以选择忽略错误，并且如果错误选择返回，则正确情况下省略else，保持代码整洁
+
+![image-20220902111443372](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902111443372.png)
+
+#### EOF（End of File）
+
+输入的时候没有更多内容则触发io.EOF，并且这个error是提前定义好的
+
+![image-20220902113648721](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902113648721.png)
+
+![image-20220902113508658](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902113508658.png)
+
+### 5.3 函数值
+
+函数是一种类型类型，可以作为参数，并且对应变量是“引用类型”，其零值为nil，相同类型可以赋值
+
+![image-20220902114434886](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902114434886.png)
+
+![image-20220902115114210](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902115114210.png)
+
+函数作为参数的例子，将一个引用类型的参数传递给多个func，可以为这个参数多次赋值（Hertz框架中使用了这种扩展性的思想）
+
+![image-20220902115541517](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902115541517.png)
+
+### 5.4 匿名函数
+
+函数的显式声明需要在package层面，但是在函数的内部也可以创建匿名函数
+
+![image-20220902131528698](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902131528698.png)
+
+从上可以看出f存放着匿名函数的引用，并且它是有状态的，维护了一个递增的x
+
+#### 捕获迭代变量引发的问题
+
+正确版本
+
+![image-20220902140757639](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902140757639.png)
+
+错误版本
+
+![image-20220902140812965](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902140812965.png)
+
+所有循环内创建的func捕获并共享了dir变量（相当于引用类型），所以创建后rmdirs切片内所有元素都有同一个dir，而不是每个元素获得dir遍历时的中间状态
+
+因此正确版本中dir := d的操作为遍历的dir申请了新的内存存放
+
+```go
+func main() {
+   arr := []int{1, 2, 3, 4, 5}
+   temp := make([]func(), 0)
+   for _, value := range arr {
+      temp = append(temp, func() {
+         fmt.Println(value)
+      })
+   }
+   for i := range temp {
+      temp[i]()
+   }
+}
+// 结果
+5
+5
+5
+5
+5
+```
+
+另一种错误版本（i最终达到数组长度上界后结束循环，并且导致dirs[i]发生越界）
+
+![image-20220902143256855](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902143256855.png)
+
+```go
+// 同样是越界的测试函数
+func main() {
+   arr := []int{1, 2, 3, 4, 5}
+   temp := make([]func(), 0)
+   for i := 0; i < 5; i++ {
+      temp = append(temp, func() {
+         fmt.Println(arr[i])
+      })
+   }
+   for i := range temp {
+      temp[i]()
+   }
+}
+// 结果
+panic: runtime error: index out of range [5] with length 5
+```
+
+以上捕获迭代变量引发的问题容易出现在延迟了func执行的情况下（先完成循环创建func、后执行func）
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
