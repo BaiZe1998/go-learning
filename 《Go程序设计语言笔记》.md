@@ -940,7 +940,61 @@ test-defer
 
 此外因为defer一般涉及到资源回收，那么如果有循环形式的资源申请，需要在循环内defer，否则可能出现遗漏
 
-### 5.7 崩溃（panic）
+### 5.7 panic（崩溃）
+
+Go的编译器已经在编译时检测了许多错误，如果Go在运行时触发如越界、空指针引用等问题，会触发panic（崩溃）
+
+panic也可以手动声明触发条件
+
+![image-20220903111918285](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903111918285.png)
+
+发生panic时，defer所定义的函数会触发（逆序），程序会在控制台打印panic的日志，并且打印出panic发生时的函数调用栈，用于定位错误出现的位置
+
+```go
+func test() {
+   fmt.Println("start")
+}
+
+func main() {
+   defer test()
+   panic("panic")
+}
+// 结果
+start
+panic: panic
+```
+
+panic不要随意使用，虽然预检查是一个好的习惯，但是大多数情况下你无法预估runtime时错误触发的原因
+
+![image-20220903112652702](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903112652702.png)
+
+手动触发panic发生在一些重大的error出现时，当然如果发生程序的崩溃，应该优雅释放资源如文件io
+
+关于panic发生时defer的逆序触发如下：
+
+![image-20220903113338468](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903113338468.png)
+
+![image-20220903113346564](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903113346564.png)
+
+![image-20220903113510294](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903113510294.png)
+
+![image-20220903113535471](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903113535471.png)
+
+### 5.8 recover（恢复）
+
+panic发生时，可以通过recover关键字进行接收（有点像异常2捕获），可以做一些资源释放，或者错误报告工作，因此可以优雅关闭系统，而不是直接崩溃
+
+![image-20220903131051578](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903131051578.png)
+
+如果recover()在defer中被调用，则当前函数运行发生panic，会触发defer中的recover()，并且返回的是panic的相关信息，否则在其他时刻调用recover()将返回nil（没有发挥recover()作用）
+
+上图中的案例recover()接受到panic后，选择打印panic内容，将其看作是一个错误，而不选择停止程序运行，因此也就有了“恢复”的含义
+
+但是recover()不能无端使用，因为panic的发生，只报告错误，放任程序继续执行，往往会使得程序后续的运行出现不可预计的问题，即使是使用recover，也只关注当前方法内的panic，而不要去考虑处理其他包的方法调用可能产生的panic，因为这更难把握程序运行的安全性
+
+因此只有少数情况下使用recover，并且确实是有这个需求，否则还是建议触发panic的行为
+
+![image-20220903132912421](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903132912421.png)
 
 
 
@@ -951,28 +1005,6 @@ test-defer
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 5.8 恢复（recover）
 
 
 
