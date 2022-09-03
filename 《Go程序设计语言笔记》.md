@@ -746,7 +746,7 @@ fmt.Errorf()格式化，添加更多描述信息，并创建一个了新的error
 
 ![image-20220902113508658](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220902113508658.png)
 
-### 5.3 函数值
+### 5.3 作为值的函数
 
 函数是一种类型类型，可以作为参数，并且对应变量是“引用类型”，其零值为nil，相同类型可以赋值
 
@@ -825,6 +825,122 @@ panic: runtime error: index out of range [5] with length 5
 
 以上捕获迭代变量引发的问题容易出现在延迟了func执行的情况下（先完成循环创建func、后执行func）
 
+### 5.5 变参函数
+
+![image-20220903094436855](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903094436855.png)
+
+vals此时是一个int类型的切片，下面是不同的调用方式
+
+![image-20220903094623144](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903094623144.png)
+
+![image-20220903094637593](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903094637593.png)
+
+虽然...int参数的作用与[]int很相似，但是其类型还是不同的，变参函数经常用于字符串的格式化printf
+
+![image-20220903094932334](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903094932334.png)
+
+测试
+
+```go
+func test(arr ...int) int {
+	arr[0] = 5
+	sum := 0
+	for i := 0; i < len(arr); i++ {
+		sum += arr[i]
+	}
+	return sum
+}
+
+func main() {
+	arr := []int{1, 2, 3, 4, 5}
+	fmt.Println(test(arr...))
+	fmt.Println(arr)
+}
+// 切片确实被修改了
+19
+[5 2 3 4 5]
+```
+
+### 5.6 延后函数调用
+
+defer通常用于资源的释放，对应于（open&close｜connect&disconnect｜lock&unlock）
+
+defer最佳实践是在资源申请的位置紧跟使用，defer在当前函数return之前触发，如果有多个defer声明，则后进先出顺序触发
+
+![image-20220903101447485](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903101447485.png)
+
+![image-20220903101507456](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903101507456.png)
+
+defer也可以用于调试复杂的函数（通过return一个func的形式）
+
+![image-20220903102940792](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903102940792.png)
+
+![image-20220903102951317](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903102951317.png)
+
+测试1：
+
+```go
+func test() func() {
+   fmt.Println("start")
+   defer func() {
+      fmt.Println("test-defer")
+   }()
+   return func() {
+      fmt.Println("end")
+   }
+}
+
+func main() {
+   defer test()()
+   fmt.Println("middle")
+}
+// 输出
+start
+test-defer
+middle
+end
+```
+
+可以观察到test()()分为两步执行，start在defer声明处打印，end在main函数return前打印，并且test内定义的defer也在test函数return前打印test-defer
+
+此时start和end包围了main函数，因此可以用这种方式调试一些复杂函数，如统计执行时间
+
+测试2：
+
+```go
+func test() func() {
+   fmt.Println("start")
+   defer func() {
+      fmt.Println("test-defer")
+   }()
+   return func() {
+      fmt.Println("end")
+   }
+}
+
+func main() {
+   defer test()
+   fmt.Println("middle")
+}
+// 输出
+middle
+start
+test-defer
+```
+
+此时将test()()改为test()，则未触发test打印end，并且先执行了打印middle
+
+另一个特性：defer可以修改return返回值：
+
+![image-20220903105051750](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903105051750.png)
+
+![image-20220903105142699](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220903105142699.png)
+
+此时double(x)的结果先计算出来，后经过了defer内result += x的赋值，最后得到12
+
+此外因为defer一般涉及到资源回收，那么如果有循环形式的资源申请，需要在循环内defer，否则可能出现遗漏
+
+### 5.7 崩溃（panic）
 
 
 
@@ -846,6 +962,17 @@ panic: runtime error: index out of range [5] with length 5
 
 
 
+
+
+
+
+
+
+
+
+
+
+### 5.8 恢复（recover）
 
 
 
