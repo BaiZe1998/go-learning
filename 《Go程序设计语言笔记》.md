@@ -1102,19 +1102,31 @@ func main() {
 
 因此当x为nil的时候，其函数调用触发行为是可以自定义的
 
+### 6.3 嵌套结构体组成新类型
 
+嵌套结构可以赋值可以简化，相当于组合成的struct拥有内部struct的属性
 
+![image-20220906141548814](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220906141548814.png)
 
+组合成的struct拥有内部struct的方法，因此一个需要拥有多个方法的结构可以通过拆解成多个结构各自拥有部分方法的组合
 
+![image-20220906141940690](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220906141940690.png)
 
+注意Go的结构的嵌套是“has a”的关系，而不是“is a”的关系，因此寻常语言的上下转型不适用
 
+一个结构可以内嵌匿名属性
 
+![image-20220906144110104](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220906144110104.png)
 
+此时ColoredPoint拥有拥有自己声明的方法，以及内嵌结构的所有方法，如果出现相同名称的方法则外层拥有更高的优先级，同名属性同理，如果出现同层级相同优先级则会报错
 
+```bash
+./main.go:35:16: ambiguous selector xxx
+```
 
+结构嵌套小试牛刀
 
-
-
+![image-20220906155034356](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220906155034356.png)
 
 
 
