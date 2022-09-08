@@ -1128,6 +1128,91 @@ func main() {
 
 ![image-20220906155034356](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220906155034356.png)
 
+#### 6.4 方法调用的两种形式
+
+寻常实例化后调用方法
+
+![image-20220908104730737](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908104730737.png)
+
+先获取某个结构体的方法表达式，传入需要触发方法的结构实例作为第一个参数，方法的参数列表对应剩余参数
+
+![image-20220908104705062](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908104705062.png)
+
+```go
+type A struct {
+   y int
+}
+
+func (a *A) Sum(x int) {
+   fmt.Println(a.y, x)
+}
+
+func main() {
+   fun := (*A).Sum
+   a := &A{1}
+   fun(a, 2)
+}
+```
+
+使用场景：
+
+![image-20220908105834590](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908105834590.png)
+
+### 6.5 封装
+
+Go语言只有一种控制变量或者方法的访问性的规则，就是首字母大小写
+
+![image-20220908115920306](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908115920306.png)
+
+![image-20220908115938888](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908115938888.png)
+
+这种写法，则跨package的时候，words字段不能被其他包内的实例访问，一定程度上确保了slice的安全性
+
+```go
+type A struct {
+   y int
+}
+
+// 此时的sum也不能被跨包访问
+func (a *A) sum(x int) {
+   fmt.Println(a.y, x)
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
