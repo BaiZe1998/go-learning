@@ -1179,6 +1179,34 @@ func (a *A) sum(x int) {
 }
 ```
 
+## 七、接口
+
+### 7.1 作为规约的接口
+
+![image-20220908215758813](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908215758813.png)
+
+io.Writer也是一个接口，所谓规约就是约束了行为，但是不制定细节实现方式，只要它实现了Write方法
+
+![image-20220908215956394](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908215956394.png)
+
+比如可以自己定义一个结构，并声明一个Write方法
+
+![image-20220908220856424](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908220856424.png)
+
+![image-20220908220905990](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908220905990.png)
+
+另一个很重要的接口
+
+![image-20220908221001547](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220908221001547.png)
+
+### 7.2 接口类型
+
+### 7.3 接口约定的达成
+
+### 7.4 使用flag.Value进行标志位分析
+
+### 7.5 作为值的接口
+
 
 
 
