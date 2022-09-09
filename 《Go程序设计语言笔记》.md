@@ -1201,37 +1201,119 @@ io.Writer也是一个接口，所谓规约就是约束了行为，但是不制�
 
 ### 7.2 接口类型
 
+![image-20220909133612927](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909133612927.png)
+
+接口的嵌套
+
+![image-20220909133633877](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909133633877.png)
+
 ### 7.3 接口约定的达成
 
-### 7.4 使用flag.Value进行标志位分析
+Go语言中，使用“is a”可以表达一个type实现了某个接口声明的所有方法（“has a”是用于结构的嵌套）
 
-### 7.5 作为值的接口
+![image-20220909134218996](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909134218996.png)
 
+赋值：f右侧可以多于左侧（只要覆盖左侧接口声明即可）
 
+![image-20220909134448711](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909134448711.png)
 
+之前提到过，Go为一个type声明方法的时候，可以使用指针接收器也可以不使用，但是在方法调用的时候，即使类型与声明时不对应，也会隐式完成转换
 
+⚠️但是要注意的是，对于使用指针接收器声明的方法，非指针接收器类型本身是不拥有这些方法的；但是非指针接收器声明的方法，指针类型是拥有声明的方法的
 
+```go
+type IntSet struct {
+}
 
+func (*IntSet) String() string {
+   fmt.Println("test")
+   return "test"
+}
 
+func main() {
+   t := IntSet{}
+   var _ = t.String() // ok
+   var _ = (&t).String() // ok
+   var _ fmt.Stringer = &t // ok
+   var _ fmt.Stringer = t // Cannot use 't' (type IntSet) as the type fmt.Stringer Type does not implement 'fmt.Stringer' as the 'String' method has a pointer receiver
+}
+```
 
+反之合法
 
+```go
+type IntSet struct {
+}
 
+func (IntSet) String() string {
+   fmt.Println("test")
+   return "test"
+}
 
+func main() {
+   t := IntSet{}
+   var _ = t.String() // ok
+   var _ = (&t).String() // ok
+   var _ fmt.Stringer = &t // ok
+   var _ fmt.Stringer = t // ok
+}
+```
 
+**空接口没有声明任何方法，因此可以接收任何类型的变量**
 
+![image-20220909142826909](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909142826909.png)
 
+但是因为interface{}没有任何方法，当一个值赋值给它之后就失去了其原本的特性，因此需要有一个机制去从interface{}中重新提取出原来的变量。（断言机制，后续7.10会提及）
 
+### 7.4 作为值的接口
 
+一个interface的状态可以由type和value修饰，称其为动态的type和动态的value，这个type的概念并不是通常意义下的类型概念（因为Type是一个静态的概念，是编译时的特性）
 
+**对下面这四行代码进行分析：**
 
+![image-20220909154224979](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909154224979.png)
 
+对于一个接口类型来说：
 
+![image-20220909153312309](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909153312309.png)
 
+一个接口的零值状态如下，这里的type也是一种“值”，用于描述这个接口的特性：
 
+![image-20220909153322549](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909153322549.png)
 
+一个接口是否为nil是根据其动态类型（type&value）决定的，因此上述w是一个nil接口（w == nil == true）
 
+![image-20220909154143706](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909154143706.png)
 
+第二行代码赋值后（value是一个指针）：
 
+![image-20220909154333839](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909154333839.png)
+
+![image-20220909154423840](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909154423840.png)
+
+第三行代码赋值后：
+
+![image-20220909155013049](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909155013049.png)
+
+![image-20220909155033233](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909155033233.png)
+
+第四行代码赋值后：
+
+![image-20220909155222622](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909155222622.png)
+
+![image-20220909155256254](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909155256254.png)
+
+**接口是一个可以比较的类型，两个接口类型都为nil时相等**
+
+**或者其动态的type和value都相等（要求可以比较，如果是slice等不可比较的类型，则会panic）**
+
+![image-20220909155854935](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909155854935.png)
+
+因此interface可以作为hash的key，也可以作为switch的操作数
+
+打印接口的动态type
+
+![image-20220909160055301](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909160055301.png)
 
 
 
