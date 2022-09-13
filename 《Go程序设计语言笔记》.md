@@ -1269,6 +1269,10 @@ func main() {
 
 一个interface的状态可以由type和value修饰，称其为动态的type和动态的value，这个type的概念并不是通常意义下的类型概念（因为Type是一个静态的概念，是编译时的特性）
 
+**其type表示赋值给这个接口的变量对应的type**
+
+**其value是一个指针，指向赋值给这个接口的变量对应的value**
+
 **对下面这四行代码进行分析：**
 
 ![image-20220909154224979](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909154224979.png)
@@ -1277,7 +1281,7 @@ func main() {
 
 ![image-20220909153312309](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909153312309.png)
 
-一个接口的零值状态如下，这里的type也是一种“值”，用于描述这个接口的特性：
+一个接口的零值状态如下（没有变量为其赋值），这里的type也是一种“值”，用于描述这个接口的特性：
 
 ![image-20220909153322549](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909153322549.png)
 
@@ -1315,19 +1319,49 @@ func main() {
 
 ![image-20220909160055301](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220909160055301.png)
 
+#### 当interface的value为nil
 
+当一个接口的变量的动态value指向nil（因为它是一个指针），则称这个变量为non-nil，并且不等于nil，因为其动态type不等于nil
 
+```go
+func main() {
+   var buf *bytes.Buffer
+   // buf = new(bytes.Buffer)
+   // 将一个实现了Write方法的结构传递给io.Writer接口类型out
+   f(buf)
+}
 
+func f(out io.Writer) {
+   if out != nil {
+      out.Write([]byte("done"))
+   }
+}
+// 报错
+panic: runtime error: invalid memory address or nil pointer dereference
+```
 
+原因：此时out是一个non-nil接口，其动态的value指向nil，但是其动态的type为*bytes.Buffer，因此out != nil确实为true
 
+![image-20220910114321665](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220910114321665.png)
 
+**下面三节讲解interface如何应用在排序、web服务、错误处理当中**
 
+### 7.5 使用sort.Interface排序
 
+一些常用的sort方法
 
+```go
+func Ints(x []int) { Sort(IntSlice(x)) }
+// 本质上IntSlice实现了sort.Interface定义的三个接口
+type IntSlice []int
 
-
-
-
+func (x IntSlice) Len() int           { return len(x) }
+func (x IntSlice) Less(i, j int) bool { return x[i] < x[j] }
+func (x IntSlice) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
+// 下面两个用法等价
+sort.Sort(sort.IntSlice(arr))
+sort.Ints(arr)
+```
 
 
 
