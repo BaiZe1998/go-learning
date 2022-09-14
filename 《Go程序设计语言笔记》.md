@@ -1363,5 +1363,49 @@ sort.Sort(sort.IntSlice(arr))
 sort.Ints(arr)
 ```
 
+### 7.6 错误接口
+
+error本质上也是实现了一个接口
+
+![image-20220914133703638](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220914133703638.png)
+
+并且返回的是一个结构的指针
+
+![image-20220914134115967](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220914134115967.png)
+
+fmt.Errorf()更加方便错误的格式化创建
+
+![image-20220914134321131](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220914134321131.png)
+
+### 7.7 类型断言
+
+在前面我们说了一个接口底层有两个动态的值，一个是type，一个是指向value的指针
+
+通过x.(T)的方式从接口实例x中，提取出x接口实例底层动态的value，底层type类型不对应T，则panic（断言操作之前一般有着接口赋值操作）
+
+![image-20220914140236625](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220914140236625.png)
+
+如果T也是一个接口类型，则断言机制会判断x的底层type是否满足这个T接口，并且当成功时，断言的结果依旧是一个接口，只是底层type的值变成了T
+
+![image-20220914142247023](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220914142247023.png)
+
+通常通过断言是否成功来取值
+
+![image-20220914143138070](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220914143138070.png)
+
+并且可以选择复用原来的变量名称
+
+![image-20220914144018071](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220914144018071.png)
+
+
+
+
+
+
+
+
+
+
+
 
 
