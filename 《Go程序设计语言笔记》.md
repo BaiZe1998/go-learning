@@ -1397,15 +1397,25 @@ fmt.Errorf()更加方便错误的格式化创建
 
 ![image-20220914144018071](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220914144018071.png)
 
+### 7.8 使用类型断言分辨错误
 
+定义一个封装的PathError：
 
+![image-20220915233007085](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220915233007085.png)
 
+使用如下：
 
+![image-20220915233031202](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220915233031202.png)
 
+os包提供了三个方法用于分辨Error
 
+![image-20220915233521559](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220915233521559.png)
 
+简易用法如下：
 
+![image-20220915233552617](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220915233552617.png)
 
+![image-20220915233608339](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220915233608339.png)
 
 
 
