@@ -1480,7 +1480,7 @@ Conn：负责维护一个与客户端的连接（循环），并且在绝大多�
 
 ### 8.3 channel 信道
 
-作为goroutine之间的通信机制，用于携程之间传递各种类型的value（是引用类型的）
+作为goroutine之间的通信机制，用于携程之间传递各种类型的value（是引用类型的，但channel可以用==比较）
 
 比如创建一个用于收发int类型的信道：
 
@@ -1500,9 +1500,13 @@ channel有两种创建方式：
 
 #### unbuffered channel
 
+对于无缓冲的信道，sent和receive是相互阻塞的，如果receive时信道中没有数据，则会阻塞，直到sent完成；相反，如果信道中已经有数据，则sent会被阻塞，直到receive完成
 
+此时，sent和receive操作是同步的，通过这个机制可以实现控制程序执行的功能
 
+![image-20220917175711144](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220917175711144.png)
 
+此时main goroutine不会终止，直到子goroutine执行完成，为done存入值（有时值是重要的，有时存入值这个行为是重要的，上图是后者）。
 
 
 
