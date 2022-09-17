@@ -1417,5 +1417,118 @@ os包提供了三个方法用于分辨Error
 
 ![image-20220915233608339](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220915233608339.png)
 
+**这个机制的作用在于可以自定义一些错误，并且在发生错误时动态判断错误的类型，从而作出相应处理**
+
+### 7.9 使用接口类型断言查询行为
+
+可以通过接口类型的断言，将一个接口实例更具体化为携带某个功能的接口实例
+
+![image-20220916153850592](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220916153850592.png)
+
+### 7.10 按类型的程序分支
+
+使用interface的两个场景：
+
+1. 用接口去定义行为（methods）
+2. 用接口去接收各个实现某个行为（methods）的类型实例，配合断言进行动态处理
+
+类型断言配合else-if：
+
+![image-20220916155104015](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220916155104015.png)
+
+类型断言配合switch：
+
+![image-20220916155002332](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220916155002332.png)
+
+关于变量的复用（以x为例）：
+
+![image-20220916155704787](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220916155704787.png)
+
+switch块内部的x与sqlQuote方法的参数x并不会发生冲突
+
+### 7.11 使用interface的建议
+
+不要为每个单独的实例去事先定义一个接口，接口的作用是抽象（二个或更多）
+
+不一定要强行满足面向对象特性编码，有时独立的function和变量也是好的选择
+
+## 八、goroutine和信道
+
+### 8.1 goroutine
+
+程序入口main方法称为main goroutine，当main方法结束return时，所有的子goroutine终止
+
+**携程与线程的行为很像，但是具体差别是由Go的语言层面的实现决定的，这也是Go能支持更高并发性能的原因所在，后续将进行更多讲解**
+
+### 8.2 示例：并发时钟服务器
+
+![image-20220917171437721](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220917171437721.png)
+
+![image-20220917171451220](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220917171451220.png)
+
+Listen：IP地址和Port的监听
+
+Accept：阻塞直到有客户端的请求连接
+
+Conn：负责维护一个与客户端的连接（循环），并且在绝大多数情况下会由于client断开连接导致server端循环终止
+
+**此时时钟服务器是顺序提供服务的，如果有多个客户端同时请求服务，则同一时间只能有一个连接建立**
+
+使用go关键字开启goroutine则可以实现同时为多个客户端提供时间打印服务
+
+![image-20220917172449582](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220917172449582.png)
+
+### 8.3 channel 信道
+
+作为goroutine之间的通信机制，用于携程之间传递各种类型的value（是引用类型的）
+
+比如创建一个用于收发int类型的信道：
+
+![image-20220917173513782](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220917173513782.png)
+
+channel主要有两种操作方式：send和receive（一个goroutine为其存入value，另一个取出value，从而实现了跨goroutine通信的功能）
+
+![image-20220917173917973](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220917173917973.png)
+
+channel的第三种操作方式：close(ch)
+
+对于关闭后的channel，不能在往里面放入value，会panic，但是如果去reveive则会将其取出，直到没有值在信道当中，则不断显示该type对应的零值
+
+channel有两种创建方式：
+
+![image-20220917174243131](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220917174243131.png)
+
+#### unbuffered channel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
