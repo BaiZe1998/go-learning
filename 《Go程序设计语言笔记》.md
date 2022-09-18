@@ -1508,27 +1508,49 @@ channel有两种创建方式：
 
 此时main goroutine不会终止，直到子goroutine执行完成，为done存入值（有时值是重要的，有时存入值这个行为是重要的，上图是后者）。
 
+#### 判断channel是否关闭
 
+如果是`x := <-natural`的写法，则natural在close之后，x会因为外循环for的原因不断取出natural的type的对应0值
 
+![image-20220918193746158](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918193746158.png)
 
+可以通过range的方式遍历channel，并且在channel关闭时结束遍历（**并且channel的close只有当其确实有必要通知下游的接受者这个关闭消息才使用，因为Go的垃圾回收机制会判断当一个变量不可达之后，对其采取回收，这与文件操作需要手动close不同**）
 
+![image-20220918194417884](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918194417884.png)
 
+![image-20220918194428978](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918194428978.png)
 
+#### 单向channel
 
+双向channel可以赋值给单向channel（隐式转换）
 
+![image-20220918195929670](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918195929670.png)
 
+#### 带缓冲的channel
 
+![image-20220918201411336](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918201411336.png)
 
+获取channel的缓冲长度
 
+![image-20220918201652579](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918201652579.png)
 
+获取当前channel中缓冲的元素个数
 
+![image-20220918201830278](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918201830278.png)
 
+总的来说，无缓冲的channel倾向于实现同步的通信；有缓冲的通信倾向于实现异步的通信
 
+### 8.5 并行循环
 
+![image-20220918204347109](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918204347109.png)
 
+![image-20220918204409688](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918204409688.png)
 
+下面是一个goroutine泄漏的例子，当有一个非nil的error发生时，程序return error，但是与此同时相当数量的go协程因为errors信道里有信息，而无法存入，导致阻塞（因为消费信道信息的函数已经return了）
 
+可能会导致程序的阻塞或者内存溢出
 
+![image-20220918205147878](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918205147878.png)
 
 
 
