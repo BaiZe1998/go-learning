@@ -1552,6 +1552,40 @@ channel有两种创建方式：
 
 ![image-20220918205147878](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220918205147878.png)
 
+### 8.6 select多路复用
+
+![image-20220922101711829](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220922101711829.png)
+
+default是可选的，如果没有可以执行的case，则select会一直阻塞
+
+如果有多个case同时可以执行，则select随机选择一个
+
+![image-20220922102155936](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20220922102155936.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
