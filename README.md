@@ -47,6 +47,10 @@
 
 [MySQL通过bin log恢复数据｜手撕MySQL｜对线面试官](https://juejin.cn/post/7071060537437585445)
 
+## Kafka
+
+[Kafka 万字精讲｜工作五年这些你都知道吗？](https://juejin.cn/post/7322518787423715338)
+
 ## 读书笔记
 
 《The Go Programing Language》阅读笔记
@@ -59,17 +63,21 @@
 
 关注公众号【白泽talk】，公众号会更新我的学习动态以及Go相关的学习文章分享。
 
-这是我的掘金博客地址：https://juejin.cn/user/1434234537126808
+稀土掘金博客地址：https://juejin.cn/user/1434234537126808
+
+CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 公众号和博客基本维持同步更新。
 
 ## 简历模板：
 
-简历书写参考我的这两篇文章：
+简历书写参考我不同时期的这几篇文章：
 
-https://juejin.cn/post/7132712873351970823
+[上岸米哈游！一篇文章搞定简历编写](https://juejin.cn/post/7321779288733843466)
 
-https://juejin.cn/post/7071849573127290894
+[时隔4个月我面试字节又挂了｜总结与展望](https://juejin.cn/post/7132712873351970823)
+
+[一篇文章教你写好自己的简历](https://juejin.cn/post/7071849573127290894)
 
 关注公众号【白泽talk】，回复【简历】即可获得。
 
