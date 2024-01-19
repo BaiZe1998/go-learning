@@ -8,14 +8,20 @@ import (
 )
 
 const (
-	HealingRate      = 0.1
+	// HealingRate 生命回复比例
+	HealingRate = 0.1
+	// AdvanceThreshold 修为阶段的底数（2次方龙）
 	AdvanceThreshold = 2
-	SuccessRate      = 0.75
-	EventChance      = 0.2
-	NPCChance        = 0.6
+	// SuccessRate 修为进阶成功几率
+	SuccessRate = 0.75
+	// EventChance 遇到事件几率
+	EventChance = 0.2
+	// NPCChance 遇到NPC几率
+	NPCChance = 0.6
 )
 
 var (
+	// NPCs NPC库
 	NPCs = map[int][]NPC{
 		0: []NPC{
 			NPC{"小妖", 10, 1, 1, 1},
@@ -151,6 +157,7 @@ var (
 			NPC{"宙斯", 5000000, 10000, 10000, 100000},
 		},
 	}
+	// Events 事件库
 	Events = map[int][]Event{
 		0: []Event{
 			Event{"从龙穴中出生，获得了一本《龙族秘典》", 10, 10, 10, 5},
@@ -300,6 +307,7 @@ var (
 	}
 )
 
+// Dragon 龙的结构体
 type Dragon struct {
 	Name            string
 	Life            int
@@ -312,6 +320,7 @@ type Dragon struct {
 	MaxRemaining    int
 }
 
+// Fight 与 NPC 战斗
 func (d *Dragon) Fight(n *NPC) {
 	for d.Life > 0 && n.Life > 0 {
 		if n.Attack > d.Defense {
@@ -331,6 +340,7 @@ func (d *Dragon) Fight(n *NPC) {
 	}
 }
 
+// Process 处理偶发事件
 func (d *Dragon) Process(e *Event) {
 	fmt.Println(e.Name)
 	d.Attack += e.Attack
@@ -339,6 +349,7 @@ func (d *Dragon) Process(e *Event) {
 	appendExperience(d, e.Experience)
 }
 
+// NPC 的结构体
 type NPC struct {
 	Name       string
 	Life       int
@@ -347,6 +358,7 @@ type NPC struct {
 	Experience int
 }
 
+// Event 的结构体
 type Event struct {
 	Name       string
 	Life       int
@@ -355,6 +367,7 @@ type Event struct {
 	Experience int
 }
 
+// 增加经验
 func appendExperience(dragon *Dragon, value int) {
 	tmp := dragon.Experience
 	dragon.Experience += value
@@ -384,6 +397,7 @@ func appendExperience(dragon *Dragon, value int) {
 	}
 }
 
+// 增加生命
 func appendLife(dragon *Dragon, value int) {
 	dragon.Life += value
 	if dragon.Life > dragon.MaxLife {
@@ -393,6 +407,7 @@ func appendLife(dragon *Dragon, value int) {
 	}
 }
 
+// 修为进阶
 func handleAdvance(dragon *Dragon) int {
 	fmt.Println("修为达到了瓶颈，是否进阶？(y/n)")
 	var choice string
@@ -418,10 +433,12 @@ func handleAdvance(dragon *Dragon) int {
 	return 2
 }
 
+// 是否游戏结束
 func isGameOver(dragon *Dragon) bool {
 	return dragon.Remaining <= 0
 }
 
+// 创建龙
 func createDragon() Dragon {
 	var dragon Dragon
 
@@ -447,6 +464,7 @@ func createDragon() Dragon {
 	return dragon
 }
 
+// 随机增加属性
 func randomIncrease(dragon *Dragon) {
 	stat := rand.Intn(3) // 0: Attack, 1: Defense, 2: Life
 	switch stat {
@@ -463,6 +481,7 @@ func randomIncrease(dragon *Dragon) {
 	}
 }
 
+// 随机减少属性
 func randomDecrease(dragon *Dragon) {
 	stat := rand.Intn(3) // 0: Attack, 1: Defense, 2: Life
 	switch stat {
@@ -479,6 +498,7 @@ func randomDecrease(dragon *Dragon) {
 	}
 }
 
+// 修养生息
 func toHeal(dragon *Dragon, turn int) {
 	fmt.Printf("你开始修养生息，恢复生命值，并增长修为\n")
 	for turn > 0 {
@@ -496,6 +516,7 @@ func toHeal(dragon *Dragon, turn int) {
 	}
 }
 
+// 外出冒险
 func toAdventure(dragon *Dragon, turn int) {
 	fmt.Printf("你开始外出冒险，增长修为\n")
 	for turn > 0 {
@@ -527,16 +548,19 @@ func toAdventure(dragon *Dragon, turn int) {
 	}
 }
 
+// 打印龙的各项属性
 func printStatus(dragon *Dragon) {
 	fmt.Printf("姓名：%s，修为：%d，称号：2的%d次方龙，攻击力：%d，防御力：%d，生命值：%d，剩余寿命：%d轮\n",
 		dragon.Name, dragon.Experience, dragon.ExperienceStage-1, dragon.Attack, dragon.Defense, dragon.Life, dragon.Remaining)
 }
 
+// 游戏结束成就打印
 func gameOver(dragon *Dragon) {
 	fmt.Printf("你长达%d轮的一生真是波澜壮阔，你达成了以下成就：\n", dragon.MaxRemaining-dragon.Remaining)
 	printStatus(dragon)
 }
 
+// 主函数
 func main() {
 	fmt.Printf("\033[H\033[2J") // Clear screen
 
