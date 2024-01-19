@@ -18,6 +18,8 @@ const (
 	EventChance = 0.2
 	// NPCChance 遇到NPC几率
 	NPCChance = 0.6
+	// StageMax 世界等级上限
+	StageMax = 18
 )
 
 var (
@@ -531,11 +533,21 @@ func toAdventure(dragon *Dragon, turn int) {
 		fmt.Printf("\n剩余寿命 %d 轮\n", dragon.Remaining)
 		rad := rand.Float64()
 		if rad <= NPCChance {
-			event := Events[dragon.ExperienceStage][rand.Intn(len(Events[dragon.ExperienceStage]))]
-			dragon.Process(&event)
+			if dragon.ExperienceStage > StageMax {
+				event := Events[StageMax][rand.Intn(len(Events[StageMax]))]
+				dragon.Process(&event)
+			} else {
+				event := Events[dragon.ExperienceStage][rand.Intn(len(Events[dragon.ExperienceStage]))]
+				dragon.Process(&event)
+			}
 		} else if rad <= NPCChance+EventChance {
-			npc := NPCs[dragon.ExperienceStage][rand.Intn(len(NPCs[dragon.ExperienceStage]))]
-			dragon.Fight(&npc)
+			if dragon.ExperienceStage > StageMax {
+				npc := NPCs[StageMax][rand.Intn(len(NPCs[StageMax]))]
+				dragon.Fight(&npc)
+			} else {
+				npc := NPCs[dragon.ExperienceStage][rand.Intn(len(NPCs[dragon.ExperienceStage]))]
+				dragon.Fight(&npc)
+			}
 		} else {
 			fmt.Println("你踏入了一片宁静的山林，潜心修炼")
 			appendExperience(dragon, int(float64(dragon.Experience)*HealingRate)*2+1)
