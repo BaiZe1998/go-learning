@@ -507,7 +507,7 @@ func toHeal(dragon *Dragon, turn int) {
 		dragon.Remaining--
 		fmt.Printf("修养中ing...\n剩余寿命 %d 轮\n", dragon.Remaining)
 		appendLife(dragon, int(float64(dragon.MaxLife)*HealingRate)+1)
-		appendExperience(dragon, int(math.Pow(AdvanceThreshold, float64(dragon.ExperienceStage))*HealingRate)+1)
+		appendExperience(dragon, int(float64(dragon.Experience)*HealingRate)+1)
 		printStatus(dragon)
 
 		if isGameOver(dragon) {
