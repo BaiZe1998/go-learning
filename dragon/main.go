@@ -333,7 +333,8 @@ func (d *Dragon) Fight(n *NPC) {
 	if d.Life <= 0 {
 		fmt.Printf("你被%s打败了\n", n.Name)
 		d.Life = 0
-		appendExperience(d, 0)
+		appendExperience(d, -d.Experience/2)
+		randomDecrease(d)
 	} else {
 		fmt.Printf("你打败了%s\n", n.Name)
 		appendExperience(d, n.Experience)
