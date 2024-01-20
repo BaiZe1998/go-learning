@@ -54,6 +54,14 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 [Go 源码解读｜如何用好 errors 库的 errors.Is() 与 errors.As() 方法](https://juejin.cn/post/7148673417066053646)
 
+## CI/CD
+
+[Woodpecker CI 设计分析｜一个 Go 编写的开源持续集成引擎](https://blog.csdn.net/qq_41468830/article/details/135667503)
+
+[docker | jenkins 实现自动化部署项目，后端躺着把运维的钱挣了！(上)](https://juejin.cn/post/7064024576497303565)
+
+[docker | jenkins 自动化CI/CD，后端躺着把运维的钱挣了！(下)](https://juejin.cn/post/7064389514470359053)
+
 ## MySQL专栏
 
 [我的sql没问题为什么还是这么慢｜MySQL加锁规则](https://juejin.cn/post/7121513578523263013)
@@ -71,6 +79,10 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 ## Kafka
 
 [Kafka 万字精讲｜工作五年这些你都知道吗？](https://juejin.cn/post/7322518787423715338)
+
+## 小游戏
+
+[《模拟龙生｜巨龙随机冒险》Go语言小游戏](https://blog.csdn.net/qq_41468830/article/details/135693777)
 
 ## 简历模板：
 
