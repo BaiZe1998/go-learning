@@ -23,142 +23,6 @@ const (
 )
 
 var (
-	// NPCs NPC库
-	NPCs = map[int][]NPC{
-		0: []NPC{
-			NPC{"小妖", 10, 1, 1, 1},
-		},
-		1: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-		},
-		2: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-		},
-		3: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-		},
-		4: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-		},
-		5: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"二郎神", 1000, 10, 10, 10},
-		},
-		6: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"二郎神", 1000, 10, 10, 10},
-		},
-		7: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"葫芦娃", 1000, 10, 10, 10},
-			NPC{"托塔天王", 2000, 20, 20, 20},
-			NPC{"牛魔王", 5000, 50, 50, 50},
-		},
-		8: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"葫芦娃", 1000, 10, 10, 10},
-			NPC{"托塔天王", 2000, 20, 20, 20},
-			NPC{"牛魔王", 5000, 50, 50, 50},
-		},
-		9: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"葫芦娃", 1000, 10, 10, 10},
-			NPC{"托塔天王", 2000, 20, 20, 20},
-			NPC{"牛魔王", 5000, 50, 50, 50},
-			NPC{"二郎神", 10000, 100, 100, 100},
-		},
-		10: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"葫芦娃", 1000, 10, 10, 10},
-			NPC{"托塔天王", 2000, 20, 20, 20},
-			NPC{"牛魔王", 5000, 50, 50, 50},
-			NPC{"二郎神", 10000, 100, 100, 100},
-		},
-		11: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"葫芦娃", 1000, 10, 10, 10},
-			NPC{"托塔天王", 2000, 20, 20, 20},
-			NPC{"牛魔王", 5000, 50, 50, 50},
-			NPC{"二郎神", 10000, 100, 100, 100},
-			NPC{"狐尼克", 20000, 200, 200, 200},
-			NPC{"朱迪警官", 50000, 500, 500, 500},
-		},
-		12: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"葫芦娃", 1000, 10, 10, 10},
-			NPC{"托塔天王", 2000, 20, 20, 20},
-			NPC{"牛魔王", 5000, 50, 50, 50},
-			NPC{"二郎神", 10000, 100, 100, 100},
-			NPC{"狐尼克", 20000, 200, 200, 200},
-			NPC{"朱迪警官", 50000, 500, 500, 500},
-		},
-		13: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"葫芦娃", 1000, 10, 10, 10},
-			NPC{"托塔天王", 2000, 20, 20, 20},
-			NPC{"牛魔王", 5000, 50, 50, 50},
-			NPC{"二郎神", 10000, 100, 100, 100},
-			NPC{"狐尼克", 20000, 200, 200, 200},
-			NPC{"朱迪警官", 50000, 500, 500, 500},
-			NPC{"狮子王", 100000, 1000, 1000, 1000},
-		},
-		14: []NPC{
-			NPC{"小妖", 100, 1, 1, 1},
-			NPC{"中妖", 200, 2, 2, 2},
-			NPC{"大妖", 300, 3, 3, 3},
-			NPC{"哪吒", 500, 5, 5, 5},
-			NPC{"葫芦娃", 1000, 10, 10, 10},
-			NPC{"托塔天王", 2000, 20, 20, 20},
-			NPC{"牛魔王", 5000, 50, 50, 50},
-			NPC{"二郎神", 10000, 100, 100, 100},
-			NPC{"狐尼克", 20000, 200, 200, 200},
-			NPC{"朱迪警官", 50000, 500, 500, 500},
-			NPC{"狮子王", 100000, 1000, 1000, 1000},
-		},
-		15: []NPC{
-			NPC{"雅典娜", 500000, 1000, 1000, 10000},
-		},
-		16: []NPC{
-			NPC{"雅典娜", 500000, 2000, 2000, 20000},
-		},
-		17: []NPC{
-			NPC{"宙斯", 5000000, 5000, 5000, 50000},
-		},
-		18: []NPC{
-			NPC{"宙斯", 5000000, 10000, 10000, 100000},
-		},
-	}
 	// Events 事件库
 	Events = map[int][]Event{
 		0: []Event{
@@ -309,58 +173,6 @@ var (
 	}
 )
 
-// Dragon 龙的结构体
-type Dragon struct {
-	Name            string
-	Life            int
-	MaxLife         int
-	Attack          int
-	Defense         int
-	Experience      int
-	ExperienceStage int
-	Remaining       int
-	MaxRemaining    int
-}
-
-// Fight 与 NPC 战斗
-func (d *Dragon) Fight(n *NPC) {
-	for d.Life > 0 && n.Life > 0 {
-		if n.Attack > d.Defense {
-			d.Life -= n.Attack - d.Defense
-		}
-		if d.Attack > n.Defense {
-			n.Life -= d.Attack - n.Defense
-		}
-	}
-	if d.Life <= 0 {
-		fmt.Printf("你被%s打败了\n", n.Name)
-		d.Life = 0
-		appendExperience(d, -d.Experience/2)
-		randomDecrease(d)
-	} else {
-		fmt.Printf("你打败了%s\n", n.Name)
-		appendExperience(d, n.Experience)
-	}
-}
-
-// Process 处理偶发事件
-func (d *Dragon) Process(e *Event) {
-	fmt.Println(e.Name)
-	d.Attack += e.Attack
-	d.Defense += e.Defense
-	appendLife(d, e.Life)
-	appendExperience(d, e.Experience)
-}
-
-// NPC 的结构体
-type NPC struct {
-	Name       string
-	Life       int
-	Attack     int
-	Defense    int
-	Experience int
-}
-
 // Event 的结构体
 type Event struct {
 	Name       string
@@ -402,11 +214,11 @@ func appendExperience(dragon *Dragon, value int) {
 
 // 增加生命
 func appendLife(dragon *Dragon, value int) {
-	dragon.Life += value
-	if dragon.Life > dragon.MaxLife {
-		dragon.Life = dragon.MaxLife
-	} else if dragon.Life < 0 {
-		dragon.Life = 0
+	dragon.basic.life += value
+	if dragon.basic.life > dragon.basic.maxLife {
+		dragon.basic.life = dragon.basic.maxLife
+	} else if dragon.basic.life < 0 {
+		dragon.basic.life = 0
 	}
 }
 
@@ -443,15 +255,17 @@ func isGameOver(dragon *Dragon) bool {
 
 // 创建龙
 func createDragon() Dragon {
-	var dragon Dragon
+	dragon := Dragon{
+		basic: &basic{},
+	}
 
 	fmt.Print("请输入龙的名称: ")
 	fmt.Scanln(&dragon.Name)
 
 	for {
 		fmt.Print("分配生命、攻击力、防御力的能力值（总和为100，以空格分隔）: ")
-		fmt.Scanln(&dragon.Life, &dragon.Attack, &dragon.Defense)
-		if dragon.Life+dragon.Attack+dragon.Defense == 100 {
+		fmt.Scanln(&dragon.basic.life, &dragon.basic.attack, &dragon.basic.defense)
+		if dragon.basic.life+dragon.basic.attack+dragon.basic.defense == 100 {
 			break
 		} else {
 			fmt.Println("总和不为100，请重新输入")
@@ -462,7 +276,7 @@ func createDragon() Dragon {
 	fmt.Scanln(&dragon.MaxRemaining)
 
 	dragon.Remaining = dragon.MaxRemaining
-	dragon.MaxLife = dragon.Life
+	dragon.basic.maxLife = dragon.basic.life
 
 	return dragon
 }
@@ -472,15 +286,15 @@ func randomIncrease(dragon *Dragon) {
 	stat := rand.Intn(3) // 0: Attack, 1: Defense, 2: Life
 	switch stat {
 	case 0:
-		dragon.Attack *= 2
-		fmt.Printf("攻击力翻倍了！, 现在是 %d\n", dragon.Attack)
+		dragon.basic.attack *= 2
+		fmt.Printf("攻击力翻倍了！, 现在是 %d\n", dragon.basic.attack)
 	case 1:
-		dragon.Defense *= 2
-		fmt.Printf("防御力翻倍了！, 现在是 %d\n", dragon.Defense)
+		dragon.basic.defense *= 2
+		fmt.Printf("防御力翻倍了！, 现在是 %d\n", dragon.basic.defense)
 	case 2:
-		dragon.MaxLife *= 2
-		dragon.Life = dragon.MaxLife
-		fmt.Printf("生命值翻倍了！, 现在是 %d\n", dragon.Life)
+		dragon.basic.maxLife *= 2
+		dragon.basic.life = dragon.basic.maxLife
+		fmt.Printf("生命值翻倍了！, 现在是 %d\n", dragon.basic.life)
 	}
 }
 
@@ -489,15 +303,15 @@ func randomDecrease(dragon *Dragon) {
 	stat := rand.Intn(3) // 0: Attack, 1: Defense, 2: Life
 	switch stat {
 	case 0:
-		dragon.Attack /= 2
-		fmt.Printf("攻击力减半了！, 还剩余 %d\n", dragon.Attack)
+		dragon.basic.attack /= 2
+		fmt.Printf("攻击力减半了！, 还剩余 %d\n", dragon.basic.attack)
 	case 1:
-		dragon.Defense /= 2
-		fmt.Printf("防御力减半了！, 还剩余 %d\n", dragon.Defense)
+		dragon.basic.defense /= 2
+		fmt.Printf("防御力减半了！, 还剩余 %d\n", dragon.basic.defense)
 	case 2:
-		dragon.MaxLife /= 2
-		dragon.Life /= 2
-		fmt.Printf("生命值减半了！, 还剩余 %d\n", dragon.Life)
+		dragon.basic.maxLife /= 2
+		dragon.basic.life /= 2
+		fmt.Printf("生命值减半了！, 还剩余 %d\n", dragon.basic.life)
 	}
 }
 
@@ -508,7 +322,7 @@ func toHeal(dragon *Dragon, turn int) {
 		turn--
 		dragon.Remaining--
 		fmt.Printf("修养中ing...\n剩余寿命 %d 轮\n", dragon.Remaining)
-		appendLife(dragon, int(float64(dragon.MaxLife)*HealingRate)+1)
+		appendLife(dragon, int(float64(dragon.basic.maxLife)*HealingRate)+1)
 		appendExperience(dragon, int(float64(dragon.Experience)*HealingRate)+1)
 		printStatus(dragon)
 
@@ -523,7 +337,7 @@ func toHeal(dragon *Dragon, turn int) {
 func toAdventure(dragon *Dragon, turn int) {
 	fmt.Printf("你开始外出冒险，增长修为\n")
 	for turn > 0 {
-		if dragon.Life <= 0 {
+		if dragon.basic.life <= 0 {
 			dragon.Remaining -= turn
 			fmt.Printf("你已经死亡，无法继续冒险!丢失%d冒险回合，请按1修养生息！！！！！！！！\n", turn)
 			break
@@ -533,20 +347,15 @@ func toAdventure(dragon *Dragon, turn int) {
 		fmt.Printf("\n剩余寿命 %d 轮\n", dragon.Remaining)
 		rad := rand.Float64()
 		if rad <= NPCChance {
+			npc := NPCs.get(dragon.ExperienceStage)
+			dragon.Fight(npc)
+		} else if rad <= NPCChance+EventChance {
 			if dragon.ExperienceStage > StageMax {
 				event := Events[StageMax][rand.Intn(len(Events[StageMax]))]
 				dragon.Process(&event)
 			} else {
 				event := Events[dragon.ExperienceStage][rand.Intn(len(Events[dragon.ExperienceStage]))]
 				dragon.Process(&event)
-			}
-		} else if rad <= NPCChance+EventChance {
-			if dragon.ExperienceStage > StageMax {
-				npc := NPCs[StageMax][rand.Intn(len(NPCs[StageMax]))]
-				dragon.Fight(&npc)
-			} else {
-				npc := NPCs[dragon.ExperienceStage][rand.Intn(len(NPCs[dragon.ExperienceStage]))]
-				dragon.Fight(&npc)
 			}
 		} else {
 			fmt.Println("你踏入了一片宁静的山林，潜心修炼")
@@ -564,13 +373,17 @@ func toAdventure(dragon *Dragon, turn int) {
 // 打印龙的各项属性
 func printStatus(dragon *Dragon) {
 	fmt.Printf("姓名：%s，修为：%d，称号：2的%d次方龙，攻击力：%d，防御力：%d，生命值：%d，剩余寿命：%d轮\n",
-		dragon.Name, dragon.Experience, dragon.ExperienceStage-1, dragon.Attack, dragon.Defense, dragon.Life, dragon.Remaining)
+		dragon.Name, dragon.Experience, dragon.ExperienceStage-1, dragon.basic.attack, dragon.basic.defense, dragon.basic.life, dragon.Remaining)
 }
 
 // 游戏结束成就打印
 func gameOver(dragon *Dragon) {
 	fmt.Printf("你长达%d轮的一生真是波澜壮阔，你达成了以下成就：\n", dragon.MaxRemaining-dragon.Remaining)
 	printStatus(dragon)
+}
+
+func init() {
+	initNPCs()
 }
 
 // 主函数
