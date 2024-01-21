@@ -414,7 +414,6 @@ func main() {
 	fmt.Println("\033[H\033[2J") // Clear screen
 
 	p = newPrinter()
-	defer p.terminal.Close()
 
 	go func() {
 		if err := termdash.Run(p.ctx, p.terminal, p.container, termdash.KeyboardSubscriber(p.keyBinding)); err != nil {
@@ -442,6 +441,8 @@ func main() {
 			p.addOperateHint("无效的选择，请重新输入")
 			time.Sleep(1 * time.Second)
 		}
-
 	}
+
+	p.addHistoryLn(newHistoryInfo("龙生结束，进化成神，按Ctrl + W退出游戏"))
+	fmt.Scanln()
 }
