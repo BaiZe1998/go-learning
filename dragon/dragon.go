@@ -7,6 +7,7 @@ import (
 // Dragon 龙的结构体
 type Dragon struct {
 	basic           *basic
+	ID              int
 	Name            string
 	Experience      int
 	ExperienceStage int

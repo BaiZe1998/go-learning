@@ -23,6 +23,8 @@ const (
 	NPCChance = 0.6
 	// StageMax 世界等级上限
 	StageMax = 18
+	// ShowRankSize 展示的排行榜大小
+	ShowRankSize = 10
 )
 
 var (
@@ -231,8 +233,8 @@ func appendLife(dragon *Dragon, value int) {
 func handleAdvance(dragon *Dragon) int {
 	p.addHistoryLn(newHistoryInfo("\n修为达到了瓶颈，是否进阶？(y/n)"))
 	var choice string
-	if dragon.ExperienceStage <= 5 {
-		p.addHistory(newHistoryInfo("修为低于2的5次方龙，默认自动进阶\n"))
+	if dragon.ExperienceStage <= 12 {
+		p.addHistory(newHistoryInfo("修为低于2的12次方龙，默认自动进阶\n"))
 		choice = "y"
 	} else {
 		p.addOperateHint("修为达到了瓶颈，是否进阶？(y/n)")
@@ -278,7 +280,7 @@ func createDragon() Dragon {
 			time.Sleep(1 * time.Second)
 			continue
 		}
-		valuesInt := []int{}
+		var valuesInt []int
 		for i := 0; i < 3; i++ {
 			i, _ := strconv.ParseInt(values[i], 10, 64)
 			valuesInt = append(valuesInt, int(i))
@@ -414,6 +416,8 @@ func main() {
 	fmt.Println("\033[H\033[2J") // Clear screen
 
 	p = newPrinter()
+	// need to be called after newPrinter()
+	go showRank(getRanks(), nil)
 
 	go func() {
 		if err := termdash.Run(p.ctx, p.terminal, p.container, termdash.KeyboardSubscriber(p.keyBinding)); err != nil {
@@ -426,7 +430,7 @@ func main() {
 
 	for !isGameOver(&dragon) {
 		p.flush()
-		p.addOperateHint("请选择操作: 1. 休养生息 2. 外出冒险")
+		p.addOperateHint("请选择操作:\n1. 休养生息\n2. 外出冒险")
 
 		choice := <-p.scanned
 
@@ -442,7 +446,11 @@ func main() {
 			time.Sleep(1 * time.Second)
 		}
 	}
+	p.addHistoryLn(newHistoryInfo("龙生结束，您的一生真是波澜壮阔，不虚此行！按 CRTL + W 退出游戏"))
 
-	p.addHistoryLn(newHistoryInfo("龙生结束，进化成神，按Ctrl + W退出游戏"))
-	fmt.Scanln()
+	rank := newRank(&dragon)
+	rank.save()
+	go showRank(getRanks(), rank)
+
+	<-p.scanned
 }
