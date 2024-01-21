@@ -55,6 +55,7 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 [Go 源码解读｜如何用好 errors 库的 errors.Is() 与 errors.As() 方法](https://juejin.cn/post/7148673417066053646)
 
 ## CI/CD
+[使用 Woodpecker 与 Gitea 搭建纯开源的 CI 流程｜极限降本](https://juejin.cn/post/7326268897027489801)
 
 [Woodpecker CI 设计分析｜一个 Go 编写的开源持续集成引擎](https://blog.csdn.net/qq_41468830/article/details/135667503)
 
