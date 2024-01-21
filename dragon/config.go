@@ -43,6 +43,13 @@ const (
 	HistoryAreaBorderColor = cell.ColorYellow
 	// HistoryAreaBorderTitle 历史记录区边界标题
 	HistoryAreaBorderTitle = "龙生经历"
+
+	// RankAreaBorderStyle 排行榜区边界样式
+	RankAreaBorderStyle = linestyle.Round
+	// RankAreaBorderColor 排行榜区边界颜色
+	RankAreaBorderColor = cell.ColorYellow
+	// RankAreaBorderTitle 排行榜区边界标题
+	RankAreaBorderTitle = "龙の排行榜 TOP 10"
 )
 
 var (

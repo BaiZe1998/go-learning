@@ -24,8 +24,20 @@ type historyInfo struct {
 	options []text.WriteOption
 }
 
+type rankInfo struct {
+	info    string
+	options []text.WriteOption
+}
+
 func newHistoryInfo(info string, options ...text.WriteOption) historyInfo {
 	return historyInfo{
+		info:    info,
+		options: options,
+	}
+}
+
+func newRankInfo(info string, options ...text.WriteOption) rankInfo {
+	return rankInfo{
 		info:    info,
 		options: options,
 	}
@@ -37,6 +49,8 @@ type printer struct {
 	terminal        *tcell.Terminal
 	container       *container.Container
 	historyText     *text.Text
+	rankText        *text.Text
+	rank            chan rankInfo
 	history         chan historyInfo
 	operateHintText *text.Text
 	operateHint     chan string
@@ -57,6 +71,9 @@ func newPrinter() *printer {
 
 	// 历史记录区
 	historyPanel, _ := text.New(text.RollContent(), text.WrapAtWords())
+
+	// 排行榜区
+	rankPanel, _ := text.New(text.RollContent(), text.WrapAtWords())
 
 	// 数值区
 	values, _ := text.New(text.RollContent(), text.WrapAtRunes())
@@ -137,11 +154,23 @@ func newPrinter() *printer {
 				),
 			),
 			container.Right(
-				container.PlaceWidget(historyPanel),
-				container.BorderTitle(HistoryAreaBorderTitle),
-				container.Border(HistoryAreaBorderStyle),
-				container.BorderColor(HistoryAreaBorderColor),
-				container.KeyFocusSkip(),
+				container.SplitVertical(
+					container.Left(
+						container.PlaceWidget(historyPanel),
+						container.BorderTitle(HistoryAreaBorderTitle),
+						container.Border(HistoryAreaBorderStyle),
+						container.BorderColor(HistoryAreaBorderColor),
+						container.KeyFocusSkip(),
+					),
+					container.Right(
+						container.PlaceWidget(rankPanel),
+						container.BorderTitle(RankAreaBorderTitle),
+						container.Border(RankAreaBorderStyle),
+						container.BorderColor(RankAreaBorderColor),
+						container.KeyFocusSkip(),
+					),
+					container.SplitPercent(50),
+				),
 			),
 			container.SplitPercent(30),
 		),
@@ -153,6 +182,8 @@ func newPrinter() *printer {
 		container:       c,
 		history:         make(chan historyInfo),
 		historyText:     historyPanel,
+		rank:            make(chan rankInfo),
+		rankText:        rankPanel,
 		operateHintText: operationHint,
 		operateHint:     make(chan string),
 		scanned:         make(chan string),
@@ -177,6 +208,7 @@ func newPrinter() *printer {
 	go p.updateValuesPanel()
 	go p.receiveHistory()
 	go p.receiveOperateHint()
+	go p.receiveRank()
 
 	return p
 }
@@ -231,6 +263,18 @@ func (p *printer) receiveHistory() {
 	}()
 }
 
+// 接收排行榜数据处理方法
+func (p *printer) receiveRank() {
+	go func() {
+		for {
+			select {
+			case info := <-p.rank:
+				p.rankText.Write(info.info, info.options...)
+			}
+		}
+	}()
+}
+
 // 显示操作提示
 func (p *printer) addOperateHint(msg string) {
 	p.operateHint <- msg
@@ -245,6 +289,12 @@ func (p *printer) addHistory(info historyInfo) {
 func (p *printer) addHistoryLn(info historyInfo) {
 	info.info += "\n"
 	p.history <- info
+}
+
+// 接收排行榜数据，并换行
+func (p *printer) addRankLn(info rankInfo) {
+	info.info += "\n"
+	p.rank <- info
 }
 
 // 接收信号，用于刷新数值区
