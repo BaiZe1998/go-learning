@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/mum4k/termdash"
 	"math"
 	"math/rand"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -23,6 +26,8 @@ const (
 )
 
 var (
+	p *printer
+
 	// Events 事件库
 	Events = map[int][]Event{
 		0: []Event{
@@ -192,10 +197,10 @@ func appendExperience(dragon *Dragon, value int) {
 		case 0:
 			dragon.Experience = int(math.Pow(AdvanceThreshold, float64(dragon.ExperienceStage)))
 			dragon.ExperienceStage++
-			fmt.Printf("恭喜，修为增加了 %d，进阶为2的%d次方龙！\n", dragon.Experience-tmp, dragon.ExperienceStage-1)
+			p.addHistory(newHistoryInfo(fmt.Sprintf("恭喜，修为增加了 %d，进阶为2的%d次方龙！\n", dragon.Experience-tmp, dragon.ExperienceStage)))
 		case 1:
 			dragon.Experience = tmp / 2
-			fmt.Printf("修为减半了！, 还剩余 %d\n", dragon.Experience)
+			p.addHistory(newHistoryInfo(fmt.Sprintf("修为减半了！, 还剩余 %d\n", dragon.Experience)))
 		case 2:
 			dragon.Experience = tmp
 		}
@@ -205,9 +210,9 @@ func appendExperience(dragon *Dragon, value int) {
 			if dragon.Experience < 0 {
 				dragon.Experience = 0
 			}
-			fmt.Printf("修为减少了 %d\n", value)
+			p.addHistory(newHistoryInfo(fmt.Sprintf("修为减少了 %d\n", value)))
 		} else {
-			fmt.Printf("修为增加了 %d\n", value)
+			p.addHistory(newHistoryInfo(fmt.Sprintf("修为增加了 %d\n", value)))
 		}
 	}
 }
@@ -224,27 +229,28 @@ func appendLife(dragon *Dragon, value int) {
 
 // 修为进阶
 func handleAdvance(dragon *Dragon) int {
-	fmt.Println("修为达到了瓶颈，是否进阶？(y/n)")
+	p.addHistoryLn(newHistoryInfo("\n修为达到了瓶颈，是否进阶？(y/n)"))
 	var choice string
 	if dragon.ExperienceStage <= 5 {
-		fmt.Printf("修为低于2的5次方龙，默认自动进阶")
+		p.addHistory(newHistoryInfo("修为低于2的5次方龙，默认自动进阶\n"))
 		choice = "y"
 	} else {
-		fmt.Scanln(&choice)
+		p.addOperateHint("修为达到了瓶颈，是否进阶？(y/n)")
+		choice = <-p.scanned
 	}
 
 	if choice == "y" {
 		if rand.Float64() <= SuccessRate {
-			fmt.Println("恭喜，修为成功进阶！")
+			p.addHistory(newHistoryInfo("恭喜，修为成功进阶！\n"))
 			randomIncrease(dragon)
 			return 0
 		} else {
-			fmt.Println("很遗憾，修为进阶失败。")
+			p.addHistory(newHistoryInfo("很遗憾，修为进阶失败。\n"))
 			randomDecrease(dragon)
 			return 1
 		}
 	}
-	fmt.Println("你选择了放弃进阶。")
+	p.addHistory(newHistoryInfo("你选择了放弃进阶。\n"))
 	return 2
 }
 
@@ -259,23 +265,41 @@ func createDragon() Dragon {
 		basic: &basic{},
 	}
 
-	fmt.Print("请输入龙的名称: ")
-	fmt.Scanln(&dragon.Name)
+	p.addOperateHint("请在下方输入龙的名称：")
+	name := <-p.scanned
+	dragon.Name = name
 
 	for {
-		fmt.Print("分配生命、攻击力、防御力的能力值（总和为100，以空格分隔）: ")
-		fmt.Scanln(&dragon.basic.life, &dragon.basic.attack, &dragon.basic.defense)
-		if dragon.basic.life+dragon.basic.attack+dragon.basic.defense == 100 {
-			break
-		} else {
-			fmt.Println("总和不为100，请重新输入")
+		p.addOperateHint("分配生命、攻击力、防御力的能力值（总和为100，以空格分隔）: ")
+		valueString := <-p.scanned
+		values := strings.Split(valueString, " ")
+		if len(values) != 3 {
+			p.addOperateHint("输入格式错误，请重新输入")
+			time.Sleep(1 * time.Second)
+			continue
 		}
+		valuesInt := []int{}
+		for i := 0; i < 3; i++ {
+			i, _ := strconv.ParseInt(values[i], 10, 64)
+			valuesInt = append(valuesInt, int(i))
+		}
+		if valuesInt[0]+valuesInt[1]+valuesInt[2] != 100 {
+			p.addOperateHint("总和不为100，请重新输入")
+			time.Sleep(1 * time.Second)
+			continue
+		}
+		dragon.basic.life = valuesInt[0]
+		dragon.basic.attack = valuesInt[1]
+		dragon.basic.defense = valuesInt[2]
+		break
 	}
 
-	fmt.Print("请输入初始寿命（轮）: ")
-	fmt.Scanln(&dragon.MaxRemaining)
+	p.addOperateHint("请输入初始寿命（轮）: ")
+	remaining := <-p.scanned
+	remainingInt, _ := strconv.ParseInt(remaining, 10, 64)
 
-	dragon.Remaining = dragon.MaxRemaining
+	dragon.Remaining = int(remainingInt)
+	dragon.MaxRemaining = int(remainingInt)
 	dragon.basic.maxLife = dragon.basic.life
 
 	return dragon
@@ -287,14 +311,14 @@ func randomIncrease(dragon *Dragon) {
 	switch stat {
 	case 0:
 		dragon.basic.attack *= 2
-		fmt.Printf("攻击力翻倍了！, 现在是 %d\n", dragon.basic.attack)
+		p.addHistory(newHistoryInfo(fmt.Sprintf("攻击力翻倍了！, 现在是 %d\n", dragon.basic.attack)))
 	case 1:
 		dragon.basic.defense *= 2
-		fmt.Printf("防御力翻倍了！, 现在是 %d\n", dragon.basic.defense)
+		p.addHistory(newHistoryInfo(fmt.Sprintf("防御力翻倍了！, 现在是 %d\n", dragon.basic.defense)))
 	case 2:
 		dragon.basic.maxLife *= 2
 		dragon.basic.life = dragon.basic.maxLife
-		fmt.Printf("生命值翻倍了！, 现在是 %d\n", dragon.basic.life)
+		p.addHistory(newHistoryInfo(fmt.Sprintf("生命值翻倍了！, 现在是 %d\n", dragon.basic.life)))
 	}
 }
 
@@ -304,27 +328,27 @@ func randomDecrease(dragon *Dragon) {
 	switch stat {
 	case 0:
 		dragon.basic.attack /= 2
-		fmt.Printf("攻击力减半了！, 还剩余 %d\n", dragon.basic.attack)
+		p.addHistory(newHistoryInfo(fmt.Sprintf("攻击力减半了！, 还剩余 %d\n", dragon.basic.attack)))
 	case 1:
 		dragon.basic.defense /= 2
-		fmt.Printf("防御力减半了！, 还剩余 %d\n", dragon.basic.defense)
+		p.addHistory(newHistoryInfo(fmt.Sprintf("防御力减半了！, 还剩余 %d\n", dragon.basic.defense)))
 	case 2:
 		dragon.basic.maxLife /= 2
 		dragon.basic.life /= 2
-		fmt.Printf("生命值减半了！, 还剩余 %d\n", dragon.basic.life)
+		p.addHistory(newHistoryInfo(fmt.Sprintf("生命值减半了！, 还剩余 %d\n", dragon.basic.life)))
 	}
 }
 
-// 修养生息
+// 休养生息
 func toHeal(dragon *Dragon, turn int) {
-	fmt.Printf("你开始修养生息，恢复生命值，并增长修为\n")
+	p.addHistory(newHistoryInfo("你开始休养生息，恢复生命值，并增长修为\n"))
 	for turn > 0 {
+		p.flush()
 		turn--
 		dragon.Remaining--
-		fmt.Printf("修养中ing...\n剩余寿命 %d 轮\n", dragon.Remaining)
+		p.addHistory(newHistoryInfo(fmt.Sprintf("休养中ing...\n剩余寿命 %d 轮\n", dragon.Remaining)))
 		appendLife(dragon, int(float64(dragon.basic.maxLife)*HealingRate)+1)
 		appendExperience(dragon, int(float64(dragon.Experience)*HealingRate)+1)
-		printStatus(dragon)
 
 		if isGameOver(dragon) {
 			break
@@ -335,16 +359,17 @@ func toHeal(dragon *Dragon, turn int) {
 
 // 外出冒险
 func toAdventure(dragon *Dragon, turn int) {
-	fmt.Printf("你开始外出冒险，增长修为\n")
+	p.addHistory(newHistoryInfo("你开始外出冒险，增长修为\n"))
 	for turn > 0 {
+		p.flush()
 		if dragon.basic.life <= 0 {
 			dragon.Remaining -= turn
-			fmt.Printf("你已经死亡，无法继续冒险!丢失%d冒险回合，请按1修养生息！！！！！！！！\n", turn)
+			p.addHistoryLn(newHistoryInfo(fmt.Sprintf("你已经死亡，无法继续冒险!丢失%d冒险回合，请按1休养生息！！！！！！！！", turn)))
 			break
 		}
 		turn--
 		dragon.Remaining--
-		fmt.Printf("\n剩余寿命 %d 轮\n", dragon.Remaining)
+		p.addHistory(newHistoryInfo(fmt.Sprintf("剩余寿命 %d 轮 ", dragon.Remaining)))
 		rad := rand.Float64()
 		if rad <= NPCChance {
 			npc := NPCs.get(dragon.ExperienceStage)
@@ -358,10 +383,9 @@ func toAdventure(dragon *Dragon, turn int) {
 				dragon.Process(&event)
 			}
 		} else {
-			fmt.Println("你踏入了一片宁静的山林，潜心修炼")
+			p.addHistoryLn(newHistoryInfo("你踏入了一片宁静的山林，潜心修炼"))
 			appendExperience(dragon, int(float64(dragon.Experience)*HealingRate)*2+1)
 		}
-		printStatus(dragon)
 
 		if isGameOver(dragon) {
 			break
@@ -370,16 +394,15 @@ func toAdventure(dragon *Dragon, turn int) {
 	}
 }
 
-// 打印龙的各项属性
-func printStatus(dragon *Dragon) {
-	fmt.Printf("姓名：%s，修为：%d，称号：2的%d次方龙，攻击力：%d，防御力：%d，生命值：%d，剩余寿命：%d轮\n",
-		dragon.Name, dragon.Experience, dragon.ExperienceStage-1, dragon.basic.attack, dragon.basic.defense, dragon.basic.life, dragon.Remaining)
-}
-
-// 游戏结束成就打印
-func gameOver(dragon *Dragon) {
-	fmt.Printf("你长达%d轮的一生真是波澜壮阔，你达成了以下成就：\n", dragon.MaxRemaining-dragon.Remaining)
-	printStatus(dragon)
+func getInputTurn() int {
+	for {
+		turn := <-p.scanned
+		turnI64, _ := strconv.ParseInt(turn, 10, 64)
+		if int(turnI64) <= p.dragon.Remaining {
+			return int(turnI64)
+		}
+		p.addOperateHint("输入轮数超过剩余寿命，请重新输入")
+	}
 }
 
 func init() {
@@ -388,40 +411,37 @@ func init() {
 
 // 主函数
 func main() {
-	fmt.Printf("\033[H\033[2J") // Clear screen
+	fmt.Println("\033[H\033[2J") // Clear screen
+
+	p = newPrinter()
+	defer p.terminal.Close()
+
+	go func() {
+		if err := termdash.Run(p.ctx, p.terminal, p.container, termdash.KeyboardSubscriber(p.keyBinding)); err != nil {
+			panic(err)
+		}
+	}()
 
 	dragon := createDragon()
+	p.setDragon(&dragon)
 
 	for !isGameOver(&dragon) {
-		//fmt.Printf("\033[H\033[2J") // Clear screen
-		printStatus(&dragon)
+		p.flush()
+		p.addOperateHint("请选择操作: 1. 休养生息 2. 外出冒险")
 
-		fmt.Println("请选择操作:")
-		fmt.Println("1. 修养生息")
-		fmt.Println("2. 外出冒险")
-		fmt.Println("z. 结束游戏")
-
-		var choice string
-		fmt.Scanln(&choice)
+		choice := <-p.scanned
 
 		switch choice {
 		case "1":
-			fmt.Println("请输入修养的轮数: ")
-			var turn int
-			fmt.Scanln(&turn)
-			toHeal(&dragon, turn)
+			p.addOperateHint("请输入休养的轮数: ")
+			toHeal(&dragon, getInputTurn())
 		case "2":
-			fmt.Println("请输入冒险的轮数: ")
-			var turn int
-			fmt.Scanln(&turn)
-			toAdventure(&dragon, turn)
-		case "z":
-			fmt.Println("结束游戏")
-			gameOver(&dragon)
-			return
+			p.addOperateHint("请输入冒险的轮数: ")
+			toAdventure(&dragon, getInputTurn())
 		default:
-			fmt.Println("无效的选择，请重新输入")
+			p.addOperateHint("无效的选择，请重新输入")
+			time.Sleep(1 * time.Second)
 		}
+
 	}
-	gameOver(&dragon)
 }
