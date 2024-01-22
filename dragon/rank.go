@@ -134,9 +134,7 @@ func showRank(ranks []*Rank, rank *Rank) {
 		if r.equal(rank) {
 			s = "👑" + s
 		}
-		if i > 0 {
-			s = s + "\n"
-		}
+		s = s + "\n"
 		p.addRankLn(newRankInfo(s))
 	}
 }

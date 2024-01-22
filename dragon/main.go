@@ -193,7 +193,7 @@ type Event struct {
 func appendExperience(dragon *Dragon, value int) {
 	tmp := dragon.Experience
 	dragon.Experience += value
-	if dragon.Experience >= int(math.Pow(AdvanceThreshold, float64(dragon.ExperienceStage))) {
+	if dragon.Experience+value >= int(math.Pow(AdvanceThreshold, float64(dragon.ExperienceStage))) {
 		result := handleAdvance(dragon)
 		switch result {
 		case 0:
@@ -208,11 +208,10 @@ func appendExperience(dragon *Dragon, value int) {
 		}
 	} else {
 		if value < 0 {
-			dragon.Experience += value
 			if dragon.Experience < 0 {
 				dragon.Experience = 0
 			}
-			p.addHistory(newHistoryInfo(fmt.Sprintf("修为减少了 %d\n", value)))
+			p.addHistory(newHistoryInfo(fmt.Sprintf("先前修为 %d，本次修为 %d, 当前修为 %d\n", tmp, value, dragon.Experience)))
 		} else {
 			p.addHistory(newHistoryInfo(fmt.Sprintf("修为增加了 %d\n", value)))
 		}
