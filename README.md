@@ -33,6 +33,8 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 [Go语言的100个错误使用场景（21-29）｜数据类型](https://juejin.cn/post/7330571394550366242)
 
+[Go语言的100个错误使用场景（30-40）｜数据类型与字符串使用](https://juejin.cn/post/7332409645007667252)
+
 更新中ing...
 
 ## Go基础知识
@@ -117,9 +119,7 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 ## Go语言书单
 
-给出的都是我曾经阅读/正在阅读的书籍，对于Go语言的入门来说已经足够。
-
-链接: https://pan.baidu.com/s/1TGumvT0rHJIyxYYr6QwbXg
+链接: https://pan.baidu.com/s/1zwdvK770UmDgAiy2ZcukZQ
 
 提取码：容易失效，关注公众号【白泽talk】，回复【提取码】即可获得，如果失效则可以直接联系我获取。
 
