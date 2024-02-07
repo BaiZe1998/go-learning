@@ -119,6 +119,8 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 ## Go语言书单
 
+![image-20240207205501192](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240207205501192.png)
+
 链接: https://pan.baidu.com/s/1zwdvK770UmDgAiy2ZcukZQ
 
 提取码：容易失效，关注公众号【白泽talk】，回复【提取码】即可获得，如果失效则可以直接联系我获取。
