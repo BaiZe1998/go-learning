@@ -15,10 +15,6 @@ type Dragon struct {
 	MaxRemaining    int
 }
 
-func (d *Dragon) isAlive() bool {
-	return d.basic.life > 0
-}
-
 func (d *Dragon) decreaseRemaining() {
 	d.Remaining--
 }
@@ -52,7 +48,7 @@ func (d *Dragon) Fight(n *NPC) {
 	p.addHistory(newHistoryInfo(n.Name, TextOptionUnderline))
 	p.addHistoryLn(newHistoryInfo("打败了"))
 	appendExperience(d, -d.Experience/2)
-	randomDecrease(d)
+	randomDecreaseState(d)
 }
 
 // Process 处理偶发事件
