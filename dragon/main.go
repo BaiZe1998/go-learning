@@ -191,27 +191,27 @@ type Event struct {
 
 // 增加经验
 func appendExperience(dragon *Dragon, value int) {
-	tmp := dragon.Experience
+	originExperience := dragon.Experience
 	dragon.Experience += value
-	if dragon.Experience+value >= int(math.Pow(AdvanceThreshold, float64(dragon.ExperienceStage))) {
+	if dragon.Experience >= int(math.Pow(AdvanceThreshold, float64(dragon.ExperienceStage))) {
 		result := handleAdvance(dragon)
 		switch result {
 		case 0:
 			dragon.Experience = int(math.Pow(AdvanceThreshold, float64(dragon.ExperienceStage)))
 			dragon.ExperienceStage++
-			p.addHistory(newHistoryInfo(fmt.Sprintf("恭喜，修为增加了 %d，进阶为2的%d次方龙！\n", dragon.Experience-tmp, dragon.ExperienceStage)))
+			p.addHistory(newHistoryInfo(fmt.Sprintf("恭喜，修为增加了 %d，进阶为2的%d次方龙！\n", dragon.Experience-originExperience, dragon.ExperienceStage)))
 		case 1:
-			dragon.Experience = tmp / 2
+			dragon.Experience = originExperience / 2
 			p.addHistory(newHistoryInfo(fmt.Sprintf("修为减半了！, 还剩余 %d\n", dragon.Experience)))
 		case 2:
-			dragon.Experience = tmp
+			dragon.Experience = originExperience
 		}
 	} else {
 		if value < 0 {
 			if dragon.Experience < 0 {
 				dragon.Experience = 0
 			}
-			p.addHistory(newHistoryInfo(fmt.Sprintf("先前修为 %d，本次修为 %d, 当前修为 %d\n", tmp, value, dragon.Experience)))
+			p.addHistory(newHistoryInfo(fmt.Sprintf("先前修为 %d，本次修为 %d, 当前修为 %d\n", originExperience, value, dragon.Experience)))
 		} else {
 			p.addHistory(newHistoryInfo(fmt.Sprintf("修为增加了 %d\n", value)))
 		}
@@ -243,11 +243,11 @@ func handleAdvance(dragon *Dragon) int {
 	if choice == "y" {
 		if rand.Float64() <= SuccessRate {
 			p.addHistory(newHistoryInfo("恭喜，修为成功进阶！\n"))
-			randomIncrease(dragon)
+			randomIncreaseState(dragon)
 			return 0
 		} else {
 			p.addHistory(newHistoryInfo("很遗憾，修为进阶失败。\n"))
-			randomDecrease(dragon)
+			randomDecreaseState(dragon)
 			return 1
 		}
 	}
@@ -307,7 +307,7 @@ func createDragon() Dragon {
 }
 
 // 随机增加属性
-func randomIncrease(dragon *Dragon) {
+func randomIncreaseState(dragon *Dragon) {
 	stat := rand.Intn(3) // 0: Attack, 1: Defense, 2: Life
 	switch stat {
 	case 0:
@@ -324,7 +324,7 @@ func randomIncrease(dragon *Dragon) {
 }
 
 // 随机减少属性
-func randomDecrease(dragon *Dragon) {
+func randomDecreaseState(dragon *Dragon) {
 	stat := rand.Intn(3) // 0: Attack, 1: Defense, 2: Life
 	switch stat {
 	case 0:
@@ -376,6 +376,7 @@ func toAdventure(dragon *Dragon, turn int) {
 			npc := NPCs.get(dragon.ExperienceStage)
 			dragon.Fight(npc)
 		} else if rad <= NPCChance+EventChance {
+			// 当龙的修为大于等于阶段最大值时，触发阶段最大值的事件（系统制裁）
 			if dragon.ExperienceStage > StageMax {
 				event := Events[StageMax][rand.Intn(len(Events[StageMax]))]
 				dragon.Process(&event)
@@ -415,7 +416,7 @@ func main() {
 	fmt.Println("\033[H\033[2J") // Clear screen
 
 	p = newPrinter()
-	// need to be called after newPrinter()
+	// need to be called after newPrinter(), this func depends on p
 	go showRank(getRanks(), nil)
 
 	go func() {
