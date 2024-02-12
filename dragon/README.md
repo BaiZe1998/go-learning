@@ -12,7 +12,7 @@
 
 ![image-20240119100821996](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240119100821996.png)
 
-> 🐲 游戏代码在我的开源 [Go 学习仓库](https://github.com/BaiZe1998/go-learning/tree/main/dragon)的`dragon`路径下，可以直接运行可执行程序体验。
+> 🐲 游戏代码在我的开源 [Go 学习仓库](https://github.com/BaiZe1998/go-learning/tree/main/dragon)的`dragon`路径下，**有 Go 语言环境的电脑，可以直接编译运行。**
 >
 > 仓库里还包含 Go 各阶段学习文章、读书笔记、电子书、简历模板等，欢迎 star。
 
