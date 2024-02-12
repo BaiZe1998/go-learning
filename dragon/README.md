@@ -16,7 +16,7 @@
 >
 > 仓库里还包含 Go 各阶段学习文章、读书笔记、电子书、简历模板等，欢迎 star。
 
-![image-20240119102429937](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240119102429937.png)
+![image-20240212134848681](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240212134848681.png)
 
 ## 二、游戏玩法
 
@@ -91,7 +91,74 @@
 
 ### 3.2 使用 channel 传递消息
 
+🐲：使用 termdash 分割出的终端窗口，包含了操作提示区、消息输入区、龙的数值区、龙生经历区，排行榜区。
 
+🌟 当主函数运行之后，每个区域都有一个协程监听各自的 channel，获取需要打印在每个区域的消息（消息的展示使用 termdash，但是消息的生产和消费都是借助 channel 协调的。
+
+![image-20240212125225636](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240212125225636.png)
+
+消息打印器结构：
+
+```go
+type printer struct {
+	dragon          *Dragon
+	ctx             context.Context
+	terminal        *tcell.Terminal
+	container       *container.Container
+	historyText     *text.Text
+	rankText        *text.Text
+	rank            chan rankInfo
+	history         chan historyInfo
+	operateHintText *text.Text
+	operateHint     chan string
+	scanned         chan string
+	flushChannel    chan struct{}
+	values          *text.Text
+	experienceBar   *gauge.Gauge
+	hpBar           *gauge.Gauge
+	keyBinding      func(*terminalapi.Keyboard)
+}
+```
+
+🌟 printer 的初始化逻辑：
+
+```go
+p := &printer{
+    terminal:        terminal,
+    ctx:             ctx,
+    container:       c,
+    history:         make(chan historyInfo),
+    historyText:     historyPanel,
+    rank:            make(chan rankInfo),
+    rankText:        rankPanel,
+    operateHintText: operationHint,
+    operateHint:     make(chan string),
+    scanned:         make(chan string),
+    flushChannel:    make(chan struct{}),
+    values:          values,
+    experienceBar:   experience,
+    hpBar:           hpBar,
+    keyBinding: func(k *terminalapi.Keyboard) {
+        // Ctrl + W 退出
+        if k.Key == keyboard.KeyCtrlW {
+            cancel()
+            os.Exit(0)
+        }
+
+        // Enter 完成输入
+        if k.Key == keyboard.KeyEnter {
+            value := inputs.ReadAndClear()
+            p.scanned <- value
+        }
+    },
+}
+go p.updateValuesPanel()
+go p.receiveHistory()
+go p.receiveOperateHint()
+go p.receiveRank()
+
+return p
+```
 
 ### 3.3 事件库与 NPC 库
 
