@@ -205,6 +205,8 @@ func appendExperience(dragon *Dragon, value int) {
 			p.addHistory(newHistoryInfo(fmt.Sprintf("修为减半了！, 还剩余 %d\n", dragon.Experience)))
 		case 2:
 			dragon.Experience = originExperience
+			randomIncreaseState(dragon, 1.25)
+			p.addHistory(newHistoryInfo(fmt.Sprintf("修为减半了！, 还剩余 %d\n", dragon.Experience)))
 		}
 	} else {
 		if value < 0 {
@@ -243,7 +245,7 @@ func handleAdvance(dragon *Dragon) int {
 	if choice == "y" {
 		if rand.Float64() <= SuccessRate {
 			p.addHistory(newHistoryInfo("恭喜，修为成功进阶！\n"))
-			randomIncreaseState(dragon)
+			randomIncreaseState(dragon, 2.0)
 			return 0
 		} else {
 			p.addHistory(newHistoryInfo("很遗憾，修为进阶失败。\n"))
@@ -307,17 +309,17 @@ func createDragon() Dragon {
 }
 
 // 随机增加属性
-func randomIncreaseState(dragon *Dragon) {
+func randomIncreaseState(dragon *Dragon, rate float64) {
 	stat := rand.Intn(3) // 0: Attack, 1: Defense, 2: Life
 	switch stat {
 	case 0:
-		dragon.basic.attack *= 2
+		dragon.basic.attack = int(float64(dragon.basic.attack) * rate)
 		p.addHistory(newHistoryInfo(fmt.Sprintf("攻击力翻倍了！, 现在是 %d\n", dragon.basic.attack)))
 	case 1:
-		dragon.basic.defense *= 2
+		dragon.basic.defense = int(float64(dragon.basic.defense) * rate)
 		p.addHistory(newHistoryInfo(fmt.Sprintf("防御力翻倍了！, 现在是 %d\n", dragon.basic.defense)))
 	case 2:
-		dragon.basic.maxLife *= 2
+		dragon.basic.maxLife = int(float64(dragon.basic.maxLife) * rate)
 		dragon.basic.life = dragon.basic.maxLife
 		p.addHistory(newHistoryInfo(fmt.Sprintf("生命值翻倍了！, 现在是 %d\n", dragon.basic.life)))
 	}
