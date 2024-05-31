@@ -113,6 +113,8 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 [《模拟龙生｜巨龙随机冒险》Go语言小游戏](https://blog.csdn.net/qq_41468830/article/details/135693777)
 
+[avoid the enemies](https://juejin.cn/post/7362858912020217907)
+
 ## 简历模板：
 
 简历书写参考我不同时期的这几篇文章：
