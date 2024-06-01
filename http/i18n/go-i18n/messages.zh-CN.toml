@@ -1,0 +1,7 @@
+[Emails]
+description = "用户未读邮件数量"
+one = "{{.Name}} 有 {{.Count}} 封邮件。"
+other = "{{.Name}} 有 {{.Count}} 封邮件。"
+[Tips]
+description = "一个错误提示"
+other = "预览失败，通道是禁用状态"
