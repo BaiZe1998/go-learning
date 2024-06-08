@@ -1,7 +1,0 @@
-[Emails]
-description = "The number of unread emails a user has"
-one = "{{.Name}} has {{.Count}} email."
-other = "{{.Name}} has {{.Count}} emails."
-[Tips]
-description  = "An error message"
-other = "Preview failed, channel is disabled"

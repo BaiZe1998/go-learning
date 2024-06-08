@@ -1,0 +1,3 @@
+[PersonCatsDII]
+hash = "sha1-60f5e91090a4d4b765315e11ebe5ebae7a927620"
+other = "{{.Name}} 有很多 {{.Count}} 猫."

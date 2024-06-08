@@ -1,0 +1,7 @@
+[PersonCatsDII]
+hash = "sha1-60f5e91090a4d4b765315e11ebe5ebae7a927620"
+other = "{{.Name}} 有很多 {{.Count}} 猫."
+
+[user_not_found]
+hash = "sha1-9d093a4291e6fde9d899c9d50d6171c54859a5ec"
+other = "用户不存在 {{.UserID}}"
