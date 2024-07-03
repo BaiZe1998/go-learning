@@ -44,8 +44,10 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 [Go语言的100个错误使用场景（61-68）｜并发实践](https://juejin.cn/post/7356618290469830710)
 
 更新中ing...
+## Go 开源库
+[star 最多的 Go 语言本地化库｜GitHub 2.8K](https://juejin.cn/post/7379092280576540709)
 
-## Go基础知识
+## Go 基础知识
 [我开源了一个Go学习仓库｜一至八章合集（包含前三个笔记）](https://juejin.cn/post/7323271621278580786)
 
 [我开源了一个Go学习仓库｜笔记分享（三）](https://juejin.cn/post/7139051731224100877)
@@ -58,7 +60,7 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 [go包管理速通，一篇文章就够了，再也不用担心因为不会导包被辞退](https://juejin.cn/post/7053229874147753992)
 
-## Go开发专栏
+## Go 开发专栏
 [玩转 Go 生态｜Hertz WebSocket 扩展简析](https://juejin.cn/post/7176901666791227450)
 
 [使用 Go HTTP 框架 Hertz 进行 JWT 认证](https://juejin.cn/post/7166600531434012679)
