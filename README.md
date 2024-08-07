@@ -67,6 +67,8 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 [go包管理速通，一篇文章就够了，再也不用担心因为不会导包被辞退](https://juejin.cn/post/7053229874147753992)
 
 ## Go 开发专栏
+[Golang在整洁架构基础上实现事务](https://juejin.cn/post/7399984522094149659)
+
 [玩转 Go 生态｜Hertz WebSocket 扩展简析](https://juejin.cn/post/7176901666791227450)
 
 [使用 Go HTTP 框架 Hertz 进行 JWT 认证](https://juejin.cn/post/7166600531434012679)

@@ -52,14 +52,14 @@ func (uc *GreeterUsecase) CreateGreeter(ctx context.Context, g *Greeter) (*Greet
 		greater *Greeter
 		err     error
 	)
-	//err = uc.db.ExecTx(ctx, func(ctx context.Context) error {
-	//	// 更新所有 hello 为 hello + "updated"，且插入新的 hello
-	//	greater, err = uc.repo.Save(ctx, g)
-	//	_, err = uc.repo.Update(ctx, g)
-	//	return err
-	//})
-	greater, err = uc.repo.Save(ctx, g)
-	_, err = uc.repo.Update(ctx, g)
+	err = uc.db.ExecTx(ctx, func(ctx context.Context) error {
+		// 更新所有 hello 为 hello + "updated"，且插入新的 hello
+		greater, err = uc.repo.Save(ctx, g)
+		_, err = uc.repo.Update(ctx, g)
+		return err
+	})
+	//greater, err = uc.repo.Save(ctx, g)
+	//_, err = uc.repo.Update(ctx, g)
 	if err != nil {
 		return nil, err
 	}
