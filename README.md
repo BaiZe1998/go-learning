@@ -18,6 +18,12 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 牛客：https://www.nowcoder.com/users/1827844
 
+## 学习路线
+
+关注公众号：白泽talk，回复【学习路线】获取
+
+![image-20240816202531131](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240816202531131.png)
+
 ## 读书笔记
 
 ### 《The Go Programing Language》
