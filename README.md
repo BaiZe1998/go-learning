@@ -62,6 +62,8 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 [Golang 高性能 Websocket 库 gws 使用与设计（一）](https://juejin.cn/post/7395867506055790646)
 
 ## Go 基础知识
+[使用Golang的协程竟然变慢了｜100万个协程的归并排序耗时分析](https://juejin.cn/post/7408855714699837478)
+
 [我开源了一个Go学习仓库｜一至八章合集（包含前三个笔记）](https://juejin.cn/post/7323271621278580786)
 
 [我开源了一个Go学习仓库｜笔记分享（三）](https://juejin.cn/post/7139051731224100877)
