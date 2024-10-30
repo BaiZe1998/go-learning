@@ -24,6 +24,11 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 ![image-20240816202531131](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240816202531131.png)
 
+## 🌟开源项目
+仓库地址：[DouTok](https://github.com/cloudzenith/DouTok)
+
+项目介绍：[我开源了一个短视频应用（Go+React）｜DouTok2.0 项目介绍](https://juejin.cn/post/7431225336145084453)
+
 ## 读书笔记
 
 ### 《The Go Programing Language》
