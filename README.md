@@ -8,7 +8,7 @@
 
 ![image-20240726234405804](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240726234405804.png)
 
-学习交流 qq 群：622383022、446397231
+学习交流 qq 群：622383022（已满）、446397231
 
 稀土掘金博客地址：https://juejin.cn/user/1434234537126808
 
