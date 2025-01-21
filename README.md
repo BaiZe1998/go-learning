@@ -32,9 +32,13 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 ## 进阶学习
 
 ### WebSocket
-[Go进阶｜手写 Go websocket 库（一）｜聊天室案例](https://www.bilibili.com/video/BV1XJkvYNEUG/?vd_source=1cb9d0f9399d93afe4f7a2ca6921c288)
+[Go进阶｜手写 websocket 库（一）｜聊天室案例](https://www.bilibili.com/video/BV1XJkvYNEUG/?vd_source=1cb9d0f9399d93afe4f7a2ca6921c288)
 
-[Go进阶｜手写 Go websocket 库（二）｜校验客户端请求](https://www.bilibili.com/video/BV1ELrHYqEc5/?spm_id_from=333.1387.homepage.video_card.click&vd_source=1cb9d0f9399d93afe4f7a2ca6921c288)
+[Go进阶｜手写 websocket 库（二）｜校验客户端请求](https://www.bilibili.com/video/BV1ELrHYqEc5/?spm_id_from=333.1387.homepage.video_card.click&vd_source=1cb9d0f9399d93afe4f7a2ca6921c288)
+
+[Go进阶｜手写 websocket 库（三）｜子协议与扩展协议](https://www.bilibili.com/video/BV1EMrbYxEDa/?spm_id_from=333.999.0.0&vd_source=1cb9d0f9399d93afe4f7a2ca6921c288)
+
+[Go进阶｜手写 websocket 库（四）｜链接劫持与缓冲区优化](https://www.bilibili.com/video/BV18KcQe9Eqm/?spm_id_from=333.999.0.0&vd_source=1cb9d0f9399d93afe4f7a2ca6921c288)
 
 ### Go 开源库解读
 [短视频上传怎么做｜minio写个支持分片上传/断点续传/秒传功能的文件服务吧](https://juejin.cn/post/7403606017308950578)
