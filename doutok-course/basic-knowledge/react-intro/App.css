@@ -1,0 +1,124 @@
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+h2 {
+  color: #555;
+}
+
+hr {
+  margin: 30px 0;
+  border: 0;
+  height: 1px;
+  background-color: #ddd;
+}
+
+/* 计数器样式 */
+.counter {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.counter button {
+  margin: 0 5px;
+  padding: 5px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.counter button:hover {
+  background-color: #45a049;
+}
+
+/* 计时器样式 */
+.timer {
+  background-color: #e0f7fa;
+  padding: 15px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+/* 待办事项列表样式 */
+.todo-list {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.add-todo {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.add-todo input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px 0 0 3px;
+}
+
+.add-todo button {
+  padding: 8px 15px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+}
+
+.add-todo button:hover {
+  background-color: #0b7dda;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+li span {
+  cursor: pointer;
+}
+
+li button {
+  padding: 5px 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+li button:hover {
+  background-color: #d32f2f;
+} 

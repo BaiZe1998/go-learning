@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package api.blog.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "blog-service/api/blog/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.blog.v1";
+
+service Blog {
+  rpc ListBlogs (ListBlogsRequest) returns (ListBlogsReply) {
+    option (google.api.http) = {
+      get: "/v1/blogs"
+    };
+  }
+  rpc GetBlog (GetBlogRequest) returns (GetBlogReply) {
+    option (google.api.http) = {
+      get: "/v1/blogs/{id}"
+    };
+  }
+  rpc CreateBlog (CreateBlogRequest) returns (CreateBlogReply) {
+    option (google.api.http) = {
+      post: "/v1/blogs"
+      body: "blog"
+    };
+  }
+  rpc UpdateBlog (UpdateBlogRequest) returns (UpdateBlogReply) {
+    option (google.api.http) = {
+      put: "/v1/blogs/{id}"
+      body: "blog"
+    };
+  }
+  rpc DeleteBlog (DeleteBlogRequest) returns (DeleteBlogReply) {
+    option (google.api.http) = {
+      delete: "/v1/blogs/{id}"
+    };
+  }
+}
+
+message BlogInfo {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+  google.protobuf.Timestamp updated_at = 4;
+}
+
+message ListBlogsRequest {}
+
+message ListBlogsReply {
+  repeated BlogInfo blogs = 1;
+}
+
+message GetBlogRequest {
+  string id = 1;
+}
+
+message GetBlogReply {
+  BlogInfo blog = 1;
+}
+
+message CreateBlogRequest {
+  BlogInfo blog = 1;
+}
+
+message CreateBlogReply {
+  BlogInfo blog = 1;
+}
+
+message UpdateBlogRequest {
+  string id = 1;
+  BlogInfo blog = 2;
+}
+
+message UpdateBlogReply {
+  BlogInfo blog = 1;
+}
+
+message DeleteBlogRequest {
+  string id = 1;
+}
+
+message DeleteBlogReply {}

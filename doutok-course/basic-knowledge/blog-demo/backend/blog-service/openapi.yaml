@@ -1,0 +1,163 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ""
+    version: 0.0.1
+paths:
+    /helloworld/{name}:
+        get:
+            tags:
+                - Greeter
+            description: Sends a greeting
+            operationId: Greeter_SayHello
+            parameters:
+                - name: name
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.HelloReply'
+    /v1/blogs:
+        get:
+            tags:
+                - Blog
+            operationId: Blog_ListBlogs
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.blog.v1.ListBlogsReply'
+        post:
+            tags:
+                - Blog
+            operationId: Blog_CreateBlog
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.blog.v1.BlogInfo'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.blog.v1.CreateBlogReply'
+    /v1/blogs/{id}:
+        get:
+            tags:
+                - Blog
+            operationId: Blog_GetBlog
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.blog.v1.GetBlogReply'
+        put:
+            tags:
+                - Blog
+            operationId: Blog_UpdateBlog
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.blog.v1.BlogInfo'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.blog.v1.UpdateBlogReply'
+        delete:
+            tags:
+                - Blog
+            operationId: Blog_DeleteBlog
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.blog.v1.DeleteBlogReply'
+components:
+    schemas:
+        api.blog.v1.BlogInfo:
+            type: object
+            properties:
+                id:
+                    type: string
+                title:
+                    type: string
+                content:
+                    type: string
+                updatedAt:
+                    type: string
+                    format: date-time
+        api.blog.v1.CreateBlogReply:
+            type: object
+            properties:
+                blog:
+                    $ref: '#/components/schemas/api.blog.v1.BlogInfo'
+        api.blog.v1.DeleteBlogReply:
+            type: object
+            properties: {}
+        api.blog.v1.GetBlogReply:
+            type: object
+            properties:
+                blog:
+                    $ref: '#/components/schemas/api.blog.v1.BlogInfo'
+        api.blog.v1.ListBlogsReply:
+            type: object
+            properties:
+                blogs:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.blog.v1.BlogInfo'
+        api.blog.v1.UpdateBlogReply:
+            type: object
+            properties:
+                blog:
+                    $ref: '#/components/schemas/api.blog.v1.BlogInfo'
+        helloworld.v1.HelloReply:
+            type: object
+            properties:
+                message:
+                    type: string
+            description: The response message containing the greetings
+tags:
+    - name: Blog
+    - name: Greeter
+      description: The greeting service definition.

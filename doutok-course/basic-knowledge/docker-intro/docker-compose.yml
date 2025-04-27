@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  # Web 应用服务
+  webapp:
+    build: .
+    container_name: my-web-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=mysecretpassword
+      - DB_NAME=mydatabase
+    volumes:
+      # - ./app:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - app-network
+
+  # 数据库服务
+  db:
+    image: postgres:13
+    container_name: my-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=mydatabase
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  # Redis 缓存服务
+  redis:
+    image: redis:6-alpine
+    container_name: my-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data: 
