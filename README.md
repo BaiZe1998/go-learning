@@ -8,10 +8,9 @@
 
 星球会整理发布体系化的学习资料，以及为从业者的所见所思，在这里你能学习到的是偏向于后端开发｜AI 相关使用和资讯。
 
-自2025年4月27日起，星球处在试运营阶段，前30位加入的用户一年内免费订阅，可添加微信：baize_talk02 免费加入。
+星球处在试运营阶段，添加 wx: baize_talk02 获取优惠券，券后年费28元。
 
 ![image-20250427221707115](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20250427221707115.png)
-
 
 视频讲解请关注📺B站：[白泽talk](https://space.bilibili.com/10399934?spm_id_from=333.999.0.0)
 
