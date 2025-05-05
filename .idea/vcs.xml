@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/doutok-course/basic-knowledge/blog-demo/frontend" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/doutok-course/basic-knowledge/nextjs-intro/my-nextjs-app" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/doutok-course/basic-knowledge/nextjs-intro/my-nextjs-app02" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/doutok-course/basic-knowledge/react-intro/my-react-app" vcs="Git" />
   </component>
 </project>

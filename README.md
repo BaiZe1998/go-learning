@@ -6,11 +6,9 @@
 
 🌍 知识星球：[白泽说](https://wx.zsxq.com/group/51111852421224)
 
-星球会整理发布体系化的学习资料，以及为从业者的所见所思，在这里你能学习到的是偏向于后端开发｜AI 相关使用和资讯。
+![image-20250505224311513](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20250505224311513.png)
 
-星球处在试运营阶段，添加 wx: baize_talk02 获取优惠券，券后年费28元。
-
-![image-20250427221707115](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20250427221707115.png)
+星球试运营当中，添加 wx: baize_talk02 领取优惠券，星球分为后端开发板块和AI大模型应用开发板块，欢迎你的加入。
 
 视频讲解请关注📺B站：[白泽talk](https://space.bilibili.com/10399934?spm_id_from=333.999.0.0)
 
@@ -38,6 +36,16 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 仓库地址：[DouTok](https://github.com/cloudzenith/DouTok)
 
 项目介绍：[我开源了一个短视频应用（Go+React）｜DouTok2.0 项目介绍](https://juejin.cn/post/7431225336145084453)
+
+## 大模型本地部署
+1. 首先你需要确保自己的显卡显存是能够满足大模型本地推理的，一般来说8G以上为好。
+2. 关注公众号【白泽talk】，回复【AIGC资料包】即可获取资料包。
+
+## Go语言书单
+
+链接: https://pan.baidu.com/s/1zwdvK770UmDgAiy2ZcukZQ
+
+提取码：容易失效，关注公众号【白泽talk】，回复【提取码】即可获得，如果失效则可以直接联系我获取。
 
 ## 进阶学习
 
@@ -180,14 +188,6 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 [一篇文章教你写好自己的简历](https://juejin.cn/post/7071849573127290894)
 
 关注公众号【白泽talk】，回复【简历】即可获得。
-
-## Go语言书单
-
-![image-20240207205501192](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20240207205501192.png)
-
-链接: https://pan.baidu.com/s/1zwdvK770UmDgAiy2ZcukZQ
-
-提取码：容易失效，关注公众号【白泽talk】，回复【提取码】即可获得，如果失效则可以直接联系我获取。
 
 ## 计算机网络书单
 
