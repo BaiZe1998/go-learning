@@ -37,10 +37,6 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 
 项目介绍：[我开源了一个短视频应用（Go+React）｜DouTok2.0 项目介绍](https://juejin.cn/post/7431225336145084453)
 
-## 大模型本地部署
-1. 首先你需要确保自己的显卡显存是能够满足大模型本地推理的，一般来说8G以上为好。
-2. 关注公众号【白泽talk】，回复【AIGC资料包】即可获取资料包。
-
 ## Go语言书单
 
 链接: https://pan.baidu.com/s/1zwdvK770UmDgAiy2ZcukZQ
@@ -48,6 +44,12 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 提取码：容易失效，关注公众号【白泽talk】，回复【提取码】即可获得，如果失效则可以直接联系我获取。
 
 ## 进阶学习
+### 大模型相关
+> 模型本地部署
+> 1. 首先你需要确保自己的显卡显存是能够满足大模型本地推理的，一般来说8G以上为好。
+> 2. 关注公众号【白泽talk】，回复【AIGC资料包】即可获取资料包。
+
+[Golang 基于 Redis 实现文档向量索引与检索系统（RAG）](https://mp.weixin.qq.com/s/rkfUkjwrxpk5RIE3hX5G2A)
 
 ### WebSocket
 [Go进阶｜手写 websocket 库（一）｜聊天室案例](https://www.bilibili.com/video/BV1XJkvYNEUG/?vd_source=1cb9d0f9399d93afe4f7a2ca6921c288)
