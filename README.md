@@ -6,9 +6,9 @@
 
 🌍 知识星球：[白泽说](https://wx.zsxq.com/group/51111852421224)
 
-![image-20250505224311513](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20250505224311513.png)
+![image-20250511170233892](https://baize-blog-images.oss-cn-shanghai.aliyuncs.com/img/image-20250511170233892.png)
 
-星球试运营当中，添加 wx: baize_talk02 领取优惠券，星球分为后端开发板块和AI大模型应用开发板块，欢迎你的加入。
+添加 wx: baize_talk02 备注【优惠券】，星球分为后端开发板块和AI大模型应用开发板块，欢迎你的加入。
 
 视频讲解请关注📺B站：[白泽talk](https://space.bilibili.com/10399934?spm_id_from=333.999.0.0)
 
@@ -35,7 +35,7 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 ## 🌟开源项目
 仓库地址：[DouTok](https://github.com/cloudzenith/DouTok)
 
-项目介绍：[我开源了一个短视频应用（Go+React）｜DouTok2.0 项目介绍](https://juejin.cn/post/7431225336145084453)
+项目介绍：[开源 Web 端短视频应用（Go+React）｜DouTok2.0 项目介绍](https://juejin.cn/post/7431225336145084453)
 
 ## Go语言书单
 
@@ -48,6 +48,8 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 > 模型本地部署
 > 1. 首先你需要确保自己的显卡显存是能够满足大模型本地推理的，一般来说8G以上为好。
 > 2. 关注公众号【白泽talk】，回复【AIGC资料包】即可获取资料包。
+
+[字节大模型应用开发框架 Eino 全解（一）｜结合 RAG 知识库案例分析框架生态](https://mp.weixin.qq.com/s/IxFHqPt9MV4cr7O2mx4nMw)
 
 [Golang 基于 Redis 实现文档向量索引与检索系统（RAG）](https://mp.weixin.qq.com/s/rkfUkjwrxpk5RIE3hX5G2A)
 
@@ -142,7 +144,6 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 [go包管理速通，一篇文章就够了，再也不用担心因为不会导包被辞退](https://juejin.cn/post/7053229874147753992)
 
 ## 自我提升
-[完蛋，我被offer包围了｜秋招自救指南](https://juejin.cn/post/7331955221114011683)
 
 [怎么他们都有开源项目经历｜手把手教你参与开源](https://juejin.cn/post/7327353582632583194)
 
@@ -182,6 +183,10 @@ CSDN博客地址：https://blog.csdn.net/qq_41468830?spm=1011.2415.3001.5343
 ## 简历模板：
 
 简历书写参考我不同时期的这几篇文章：
+
+[简历编写指南](https://www.bilibili.com/video/BV1ATVRz5EdQ)
+
+[完蛋，我被offer包围了｜秋招自救指南](https://juejin.cn/post/7331955221114011683)
 
 [秋招上岸！一篇文章搞定简历编写](https://juejin.cn/post/7321779288733843466)
 
